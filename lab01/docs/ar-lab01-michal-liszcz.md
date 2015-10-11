@@ -333,10 +333,35 @@ W zależności od mocy obliczeniowej procesorów, podział może być dokonany n
 nierówne części. W testowanym przypadku każdy z procesorów otrzymał taką samą
 liczbę zadań.
 
+## Opis algorytmu
+
+W algorytmie równoległym każdy procesor będzie wykonywał w pętli następujące
+operacje:
+
+1. pobranie od sąsiednich procesorów informacji o wartościach obliczonych
+   w poprzednim kroku na brzegach ich obszarów,
+2. przekazanie sąsiadom informacji o wartościach obliczonych w poprzednim
+   kroku na brzegu swojego obszaru,
+3. wyliczenie wartości dla aktualnego kroku na całym obsługiwanym obszarze.
+
+Należy uważać na zakleszczenie w punktach 1. i 2.. Dwa procesory obsługujące
+sąsiadujące porcje danych mogą wzajemnie czekać na dane z poprzedniej iteracji
+sąsiedniego procesora. Istnieje kilka rozwiązań:
+można przykładowo wymusić ustaloną kolejność operacji 1. i 2. w komunikujacych
+się procesorach, lub użyć komunikacji asynchronicznej.
+
+W implementacji
+z wykorzystaniem MPI użyta zostanie funkcja \texttt{MPI\_Sendrecv}, która
+w abstrakcyjny sposób ukrywa detale komunikacji asynchronicznej
+(\texttt{MPI\_Isend} oraz \texttt{MPI\_Irecv}).
+
 
 # Analiza wyników
 
-*TODO*
+Proponowany algorytm równoległy został przetestowany na klastrze Zeus
+w ACK Cyfronet. Testy obejmowały pomiary standardowych metryk programów
+równoległych: przyspieszenia, efektywności oraz oszacowania wpływu komunikacji
+na wydajność.
 
 \begin{thebibliography}{9}
 
