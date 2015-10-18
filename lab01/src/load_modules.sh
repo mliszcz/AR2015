@@ -1,5 +1,6 @@
 #!/bin/bash
 
+module load el6/tools/python/3.4.2
 module load el6/tools/gcc/4.9.2
 module load el6/tools/mpich/3.0.4
 

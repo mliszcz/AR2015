@@ -75,10 +75,12 @@ public:
         }
     }
 
-    void solve() {
+    double solve(bool dump_solution = false) {
 
         // +2 for neighbour buffers (left + right)
         double*** p = createDataBuffer(K, N_local + 2, M);
+
+        double start = MPI_Wtime();
 
         setInitialConditions(p);
 
@@ -91,8 +93,10 @@ public:
         const int root = 0;
         double* results = collectResults(p, root);
 
-        if (world_rank == root) {
-            constructSolution(results, true);
+        double total_time = MPI_Wtime() - start;
+
+        if (world_rank == root && dump_solution) {
+            constructSolution(results, dump_solution);
         }
 
         if (results != nullptr) {
@@ -100,6 +104,8 @@ public:
         }
 
         deleteDataBuffer(p, K, N_local + 2, M);
+
+        return total_time;
     }
 
 private:
@@ -237,7 +243,6 @@ private:
     }
 };
 
-
 int main(int argc, char** argv) {
 
     if (argc < 4) {
@@ -256,9 +261,13 @@ int main(int argc, char** argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
     Solver solver(world_rank, world_size, K, N, M);
-    solver.solve();
+    double total = solver.solve(false);
 
     MPI_Finalize();
+
+    if (world_rank == 0) {
+        std::cout << total << "\n";
+    }
 
     return 0;
 }
