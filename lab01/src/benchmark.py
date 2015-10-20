@@ -30,10 +30,10 @@ series = 4
 nodes = range(1, 13)
 
 # standard
-problem_size = [300, 600, 1200]
+problem_size = [300, 600, 1200, 2400]
 
 # scaled
-problem_per_node = [50, 100, 200]
+problem_per_node = [50, 100, 200, 400]
 
 K = 100
 
