@@ -1,6 +1,6 @@
 % Algorytmy równoległe 2015 (zad. 1)
 % Michał Liszcz
-% 2015-10-11
+% 2015-10-21
 
 ---
 geometry: margin=6em
@@ -362,6 +362,125 @@ Proponowany algorytm równoległy został przetestowany na klastrze Zeus
 w ACK Cyfronet. Testy obejmowały pomiary standardowych metryk programów
 równoległych: przyspieszenia, efektywności oraz oszacowania wpływu komunikacji
 na wydajność.
+
+## Metryki podstawowe - pomiar czasu
+
+Pierwszy etap testów obejmował pomiar czasu, przyspieszenia i efektywności w
+wersji podstawowej. Testy przeprowadziłem osobno dla siatek o rozmiarach
+100x300x300, 100x600x600, 100x1200x1200 oraz 100x2400x2400. W dalszej części
+sprawozdania $n$ oznacza *rozmiar problemu* - w tym przypadku liczbę punktów
+siatki.
+
+Liczbę procesorów zmieniałem w zakresie 1-12. *W przyszłości planowane są testy
+na klastrze o większej liczbie procesorów.*
+
+Dla każdej ustalonej liczby procesorów $p$ zmierzyłem czas $T(n,p)$ wykonania
+programu. Pomiar powtórzyłem czterokrotnie a następnie uśredniłem. Jako
+niepewność pomiaru $u(T(n,p))$ przyjąłem odchylenie standardowe średniej
+z uzyskanych wartości. Wyniki uzyskane dla dwóch pierwszych siatek to bardzo
+krótkie czasy i są obarczone dużymi niepewnościami pomiarowymi, dlatego pomijam
+je w dyskusji wyników.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plots/plot-standard-time-600.png}
+    \caption{Czas wykonania programu w funkcji liczby procesorów
+        dla siatki 100x600x600}
+    \label{fig:plot-std-tim-600}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plots/plot-standard-time-1200.png}
+    \caption{Czas wykonania programu w funkcji liczby procesorów
+        dla siatki 100x1200x1200}
+    \label{fig:plot-std-tim-1200}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plots/plot-standard-time-2400.png}
+    \caption{Czas wykonania programu w funkcji liczby procesorów
+        dla siatki 100x2400x2400}
+    \label{fig:plot-std-tim-2400}
+\end{figure}
+
+Wykresy \ref{fig:plot-std-tim-600}, \ref{fig:plot-std-tim-1200} oraz
+\ref{fig:plot-std-tim-2400} prezentują gładką krzywą, malejącą ze wzrostem
+liczby procesorów. Można spróbować "dopasować" do tych danych funkcję:
+
+\begin{equation}
+T(n,p) = \frac{A(n)}{p} + B(n)
+\end{equation}
+
+Stała $B$ wynika z istnienia części sekwencyjnej - wykresy nie zbiegają do $0$.
+
+Zmierzone wartości czasu wydają się być sensowne i zgodne z oczekiwaniami.
+
+## Metryki podstawowe - pomiar przyspieszenia i efektywności
+
+Wykorzystałem następujące definicje przyspieszenia $S(n,p)$ i efektywności
+$E(n,p)$:
+
+\begin{equation}
+S(n,p) = \frac{T(n,1)}{T(n,p)}
+\end{equation}
+
+\begin{equation}
+E(n,p) = \frac{S(n,p)}{p}
+\end{equation}
+
+Niepewności oszacowałem metodą różniczki zupełnej.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plots/plot-standard-speedup-1200.png}
+    \caption{Przyspieszenie w funkcji liczby procesorów
+        dla siatki 100x1200x1200}
+    \label{fig:plot-std-spd-1200}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plots/plot-standard-speedup-2400.png}
+    \caption{Przyspieszenie w funkcji liczby procesorów
+        dla siatki 100x2400x2400}
+    \label{fig:plot-std-spd-2400}
+\end{figure}
+
+Z wykresów \ref{fig:plot-std-spd-1200} i \ref{fig:plot-std-spd-2400} widać,
+że udało się uzyskać przyspieszenie (około dwukrotne dla dwóch procesorów
+i pięciokrotne dla 12 procesorów).
+
+Wykresy \ref{fig:plot-std-eff-1200} i \ref{fig:plot-std-eff-2400} przedstawiają
+obliczoną efekywność algorytmu. Efektywność maleje w przybliżeniu liniowo ze
+wzrostem liczby procesorów.
+
+Dodatkowy komentarz wymaga przeprowadzenia testów dla większej liczby
+procesorów przy tych samych rozmiarach siatki, aby lepiej określić zachowanie
+funkcji przyspieszenia i efektywności dla dużych $p$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plots/plot-standard-efficiency-1200.png}
+    \caption{Efektywność w funkcji liczby procesorów
+        dla siatki 100x1200x1200}
+    \label{fig:plot-std-eff-1200}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plots/plot-standard-efficiency-2400.png}
+    \caption{Efektywność w funkcji liczby procesorów
+        dla siatki 100x2400x2400}
+    \label{fig:plot-std-eff-2400}
+\end{figure}
+
+## Metryki skalowalne
+*uzupełnić*
+
+## Duża liczba procesorów
+*uzupełnić*
 
 \begin{thebibliography}{9}
 
