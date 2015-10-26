@@ -33,9 +33,11 @@ nodes = range(1, 13)
 problem_size = [300, 600, 1200, 2400]
 
 # scaled
-problem_per_node = [50, 100, 200, 400]
+# problem_per_node = [50, 100, 200, 400]
+problem_per_node = [50, 100]
 
 K = 100
+N0 = 120
 
 if not scaled:
     for N in problem_size:
@@ -52,7 +54,7 @@ else:
     for N in problem_per_node:
         for nod in nodes:
             NN = N*nod
-            res = [run_test(nod, K, NN, NN) for _ in range(series)]
+            res = [run_test(nod, K, NN, N0) for _ in range(series)]
             if all(res):
                 print('{0} {1} {2} {3} {4}'.format(
                     NN, nod, ' '.join(map(str,res)),
