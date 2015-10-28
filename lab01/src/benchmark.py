@@ -27,17 +27,18 @@ def run_test(nodes, K, N, M):
         return None
 
 series = 4
-nodes = range(1, 13)
+nodes = range(1, 49)
 
 # standard
-problem_size = [300, 600, 1200, 2400]
+# problem_size = [300, 600, 1200, 2400]
+problem_size = [3600]
 
 # scaled
 # problem_per_node = [50, 100, 200, 400]
-problem_per_node = [50, 100]
+problem_per_node = [200]
 
-K = 100
-N0 = 120
+K = 50 
+N0 = 1200 
 
 if not scaled:
     for N in problem_size:
