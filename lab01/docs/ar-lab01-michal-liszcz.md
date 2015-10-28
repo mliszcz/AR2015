@@ -1,6 +1,6 @@
 % Algorytmy równoległe 2015 (zad. 1)
 % Michał Liszcz
-% 2015-10-21
+% 2015-10-28
 
 ---
 geometry: margin=6em
@@ -13,6 +13,7 @@ header-includes:
     - \usepackage{graphicx}
     - \usepackage{float}
     - \usepackage{color}
+    - \usepackage{listings}
 ---
 
 \newpage
@@ -381,6 +382,8 @@ z uzyskanych wartości. Wyniki uzyskane dla dwóch pierwszych siatek to bardzo
 krótkie czasy i są obarczone dużymi niepewnościami pomiarowymi, dlatego pomijam
 je w dyskusji wyników.
 
+**Pomiary wykonałem z wykorzystaniem implementacji MPICH 3.0.4.**
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{plots/plot-standard-time-600.png}
@@ -411,6 +414,7 @@ liczby procesorów. Można spróbować "dopasować" do tych danych funkcję:
 
 \begin{equation}
 T(n,p) = \frac{A(n)}{p} + B(n)
+\label{eq:inv01}
 \end{equation}
 
 Stała $B$ wynika z istnienia części sekwencyjnej - wykresy nie zbiegają do $0$.
@@ -476,11 +480,97 @@ funkcji przyspieszenia i efektywności dla dużych $p$.
     \label{fig:plot-std-eff-2400}
 \end{figure}
 
-## Metryki skalowalne
-*uzupełnić*
-
 ## Duża liczba procesorów
-*uzupełnić*
+
+Testy dla większej ilości procesorów przeprowadziłem wykorzystując cztery
+węzły 12-procesorowe. Charakterystyki są zgodne z tymi przedstawionymi w
+poprzednim punkcie.
+
+W testach zmniejszyłem zakres czasowy do $K=50$, natomiast równanie
+rozwiązywałem na większej przestrzennie siatce $N=M=3600$.
+
+**Testy przeprowadziłem z wykorzystaniem implementacji OpenMPI 1.8.1.**
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plots/plot-standard-time-3600.png}
+    \caption{Całkowity czas w funkcji liczby procesorów
+        dla siatki 50x3600x3600}
+    \label{fig:plot-std-tim-3600}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plots/plot-standard-speedup-3600.png}
+    \caption{Przyspieszenie w funkcji liczby procesorów
+        dla siatki 50x3600x3600}
+    \label{fig:plot-std-spd-3600}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plots/plot-standard-efficiency-3600.png}
+    \caption{Efektywność w funkcji liczby procesorów
+        dla siatki 50x3600x3600}
+    \label{fig:plot-std-eff-3600}
+\end{figure}
+
+# Dyskusja wyników
+
+Efektywność programu spada ze wzrostem liczby procesorów. Można próbować
+uzasadnić kształ krzywej otrzymanej przykładowo na rysunku
+\ref{fig:plot-std-tim-3600} (zależność czasu przetwarzania $T$ od liczby
+procesorów $p$).
+
+Spróbujmy oszacować taki czas. Jest $K=50$ identycznych iteracji - czas $T$
+będzie więc liniową funkcją $K$, z zerowym wyrazem wolnym. W każdej iteracji
+procesor operuje na danych o rozmiarze $N \cdot \frac{N}{p}$. Załóżmy że
+wypełnienie jednej komórki zajmuje mu czas $t$. Dodatkowo, w każdej iteracji
+procesor wymienia dane o rozmiarze $N \cdot 1$ z dwoma sąsiadami. Zajmuje to
+czas $s$. Całkowity czas $T$ to zatem:
+
+\begin{equation}
+T(p) = K\left(\left[N\frac{N}{p}\right]t+\left[2N\right]s\right)
+\label{eq:inv02}
+\end{equation}
+
+Mniej szczegółowe szacowanie zależności \eqref{eq:inv02} przedstawiłem
+wcześniej, w równaniu \eqref{eq:inv01}.
+
+Współczynniki $t$ i $s$ można otrzymać, aproksymując \eqref{eq:inv02} z
+punktami pochodzącymi z pomiarów. Można do tego wykorzystać program
+komputerowy, na przykład Wolfram Mathematica.
+
+\begin{lstlisting}[frame=single]
+K = 50;
+N = 3600;
+model = NonlinearModelFit[fitData, K( (N^2/p)t + 2 N s ), {t, s}, p]
+\end{lstlisting}
+
+Otrzymane współczynniki dopasowania (niepewności podane w
+standardowej notacji):
+
+\begin{equation}
+\begin{aligned}
+t &= 402,7(1,7) \cdot 10^{-10} \approx 0,04 \mathrm{\mu s} \\
+s &= 754,9(5,5) \cdot 10^{-8} \approx 7,50 \mathrm{\mu s}
+\end{aligned}
+\end{equation}
+
+Czas przesłania jednej komórki (typ *double*) w obie strony,
+jest około 200 razy większy od kilku operacji mnożenia
+i dodawania wykonanych na tej i sąsiednich komórkach.
+Należy dodatkowo zweryfikować wyznaczone wartości.
+
+Dopasowana krzywa wraz z wartościami zmierzonymi przedstawiona jest
+na rysunku \ref{fig:fitted-model}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{plots/fit.png}
+    \caption{Krzywa dopasowana w programie Mathematica.}
+    \label{fig:fitted-model}
+\end{figure}
 
 \begin{thebibliography}{9}
 
