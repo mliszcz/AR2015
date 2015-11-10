@@ -3,12 +3,34 @@ package lab02
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
+import org.apache.spark.rdd.RDD
 
 object Main {
 
-    def main(args: Array[String]) = {
+    // TODO stop algorithm when no change occurs
+    val ITERATIONS = 10
 
-        val ITERATIONS = 10
+    def makeUndirected(edges: RDD[(Int, Int)]) =
+        (edges ++ edges.map(_.swap)).distinct
+
+    def connectedComponents(graph: RDD[(Int, Int)]) = {
+
+        val connections: RDD[(Int, Iterable[Int])] = graph.groupByKey.cache
+        var weights = connections map { case (k, _) => (k, k) }
+
+        for (i <- 1 to ITERATIONS) {
+
+            val newWeights = connections.join(weights).values.flatMap {
+                case (indices, weight) => indices map { (_, weight) }
+            } reduceByKey(Math.min)// combineByKey (weight => weight, Math.min, Math.min)
+
+            weights = weights.join(newWeights).mapValues((Math.min _).tupled)
+        }
+
+        weights.map(_.swap).groupByKey
+    }
+
+    def main(args: Array[String]) = {
 
         val conf = new SparkConf()
             .setAppName("lab02")
@@ -16,40 +38,17 @@ object Main {
 
         val sc = new SparkContext(conf)
 
-        //  Prepare data
-        val linksData = Array(
-                ("a", "c"), ("b", "a"),
-                ("c", "a"), ("c", "d"),
-                ("d", "a"), ("d", "b"))
-
-        //  RDD of (url, url) pairs
-        //  RDD[(String, String)]
-        val linksRDD = sc.parallelize(linksData)
-
-        //  RDD of (url, neighbors) pairs
-        //  RDD[(String, Iterable[String])]
-        val links = linksRDD.distinct().groupByKey().cache()
-
-        // RDD of (url, rank) pairs
-        // RDD[(String, Double)]
-        // Pass each value in the key-value pair RDD through a map function
-        // without changing the keys;
-        // this also retains the original RDD's partitioning.
-        var ranks = links.mapValues(v => 1.0)
-
-        for (i <- 1 to ITERATIONS) {
-            val contribs = links.join(ranks).values.flatMap {
-                case (urls, rank) =>
-                    val size = urls.size
-                    urls.map(url => (url, rank / size))
-            }
-            ranks = contribs.reduceByKey(_ + _).mapValues(0.15 + 0.85 * _)
+        val inputGraph = sc.textFile(args(0), 1) map { _.split("\\s+") } map {
+            case Array(x: String, y: String) => (x.toInt, y.toInt)
         }
 
-        // Return an array that contains all of the elements in this RDD.
-        val output = ranks.collect()
+        val graph = makeUndirected(inputGraph)
 
-        output.foreach(tup => println(tup._1 + " has rank: " + tup._2 + "."))
+        println(graph.collectAsMap)
+
+        val result = connectedComponents(graph)
+
+        println(result.collectAsMap)
 
         sc.stop()
     }
