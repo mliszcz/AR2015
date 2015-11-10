@@ -4,30 +4,35 @@ import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
+import scala.annotation.tailrec
 
 object Main {
 
-    // TODO stop algorithm when no change occurs
-    val ITERATIONS = 10
+    type IntMapRDD = RDD[(Int, Int)]
 
-    def makeUndirected(edges: RDD[(Int, Int)]) =
+    def makeUndirected(edges: IntMapRDD) =
         (edges ++ edges.map(_.swap)).distinct
 
-    def connectedComponents(graph: RDD[(Int, Int)]) = {
+    def connectedComponents(graph: IntMapRDD): RDD[Iterable[Int]] = {
 
-        val connections: RDD[(Int, Iterable[Int])] = graph.groupByKey.cache
-        var weights = connections map { case (k, _) => (k, k) }
+        val connections = graph.groupByKey//.cache
+        val initWeights = connections map { case (k, _) => (k, k) }
 
-        for (i <- 1 to ITERATIONS) {
+        @tailrec
+        def performStep(weights: IntMapRDD): IntMapRDD = {
 
             val newWeights = connections.join(weights).values.flatMap {
                 case (indices, weight) => indices map { (_, weight) }
-            } reduceByKey(Math.min)// combineByKey (weight => weight, Math.min, Math.min)
+            } reduceByKey(Math.min)
 
-            weights = weights.join(newWeights).mapValues((Math.min _).tupled)
+            val mergedWeights = weights.join(newWeights)
+                .mapValues((Math.min _).tupled)
+
+            if (weights.subtract(mergedWeights).count == 0)
+                mergedWeights else performStep(mergedWeights)
         }
 
-        weights.map(_.swap).groupByKey
+        performStep(initWeights).map(_.swap).groupByKey.map(_._2)
     }
 
     def main(args: Array[String]) = {
@@ -48,7 +53,7 @@ object Main {
 
         val result = connectedComponents(graph)
 
-        println(result.collectAsMap)
+        println(result.collect.toSeq)
 
         sc.stop()
     }
