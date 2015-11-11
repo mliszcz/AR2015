@@ -151,6 +151,9 @@ spójnych składowych transformacją:
 performStep(initWeights).map(_ .swap).groupByKey.map(_ ._ 2)
 \end{lstlisting}
 
+**UWAGA:** *W rozwiązaniu należy pamiętać o cache-owaniu zbiorów wielokrotnie
+używanych.*
+
 
 \begin{thebibliography}{9}
 
