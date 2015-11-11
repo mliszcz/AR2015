@@ -151,9 +151,40 @@ spójnych składowych transformacją:
 performStep(initWeights).map(_ .swap).groupByKey.map(_ ._ 2)
 \end{lstlisting}
 
-**UWAGA:** *W rozwiązaniu należy pamiętać o cache-owaniu zbiorów wielokrotnie
+**UWAGA:** *w rozwiązaniu należy pamiętać o cache-owaniu zbiorów wielokrotnie
 używanych.*
 
+# Testy lokalne
+
+W celu zbadania wpływu ilości procesorów na czas rozwiązywania problemu,
+uruchomiłem program w konfiguracji lokalnej na maszynie z procesorem
+Intel Core i5-4200u, 2C/4T. Docelowo testy będą przeprowadzone na klastrze
+Zeus w ACK Cyfronet AGH.
+
+Do testów wybrałem zbiór *ca-GrQc*
+\footnote{https://snap.stanford.edu/data/ca-GrQc.html} o 5242 wierzchołkach
+i 14496 krawędziach.
+
+Ilość procesorów dostępnych dla Apache Spark zmieniałem w zakresie 1-4.
+W każdym wypadku pomiar powtórzyłem czterokrotnie. Wyniki przedstawia
+poniższa tabela.
+
+| wątki | czas  | błąd  |
+|:-----:|:-----:|:-----:|
+| 1     | 4.366 | 1.308 |
+| 2     | 3.834 | 1.215 |
+| 3     | 3.853 | 1.488 |
+| 4     | 3.615 | 1.527 |
+
+Widać nieznaczny wzrost wydajności.
+
+# Testy na klastrze Zeus
+
+*TODO*
+
+# Dyskusja wyników
+
+*TODO*
 
 \begin{thebibliography}{9}
 

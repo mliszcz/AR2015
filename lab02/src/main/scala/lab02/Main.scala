@@ -5,7 +5,7 @@ import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
 import scala.annotation.tailrec
-import scala.Numeric._
+import scala.util.control.Exception._
 
 object Main {
 
@@ -76,7 +76,8 @@ object Main {
 
         val sc = new SparkContext(conf)
 
-        val inputGraph = sc.textFile(args(0), 1) map { _.split("\\s+") } map {
+        val inputGraph = sc.textFile(args(0), 1).filter { ! _.startsWith("#")
+        } map { _.split("\\s+") } map {
             case Array(x: String, y: String) => (x.toInt, y.toInt)
         } cache
 
@@ -86,7 +87,7 @@ object Main {
 //        val result = connectedComponents(graph)
 //        println(result.collect.toSeq)
 
-        val series = 50
+        val series = allCatch.opt { args(1).toInt } getOrElse(4)
 
 //        val time = runSeries(graph, series)
 //        println(time / 1000.0 / series)
