@@ -4,6 +4,7 @@ import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
+import org.apache.spark.graphx.util.GraphGenerators
 import scala.annotation.tailrec
 import scala.util.control.Exception._
 
@@ -70,30 +71,52 @@ object Main {
 
     def main(args: Array[String]) = {
 
+        // usage: <local|cluster> <local-nodes> <series> <generate|'file'> [v]
+
+        implicit class SparkConfWithLocalOrRemote(conf: SparkConf) {
+            def localOrRemote() =
+                allCatch.opt { args(0) == "local" }
+                .filter { _ == true } map { _ =>
+                    val nodes = allCatch.opt { args(1).toInt } getOrElse (4)
+                    conf.setMaster(s"local[$nodes]")
+                } getOrElse conf
+        }
+
         val conf = new SparkConf()
             .setAppName("lab02")
-            .setMaster("local[4]")
+            .localOrRemote
 
         val sc = new SparkContext(conf)
 
-        val inputGraph = sc.textFile(args(0), 1).filter { ! _.startsWith("#")
-        } map { _.split("\\s+") } map {
-            case Array(x: String, y: String) => (x.toInt, y.toInt)
-        } cache
+        val optionalGraph = allCatch.opt { args(3) } map {
+            case "generate" =>
+                val vertices = allCatch.opt { args(4).toInt } getOrElse 100
+                GraphGenerators.logNormalGraph(sc, vertices, 1).edges.map {
+                    edge => (edge.srcId.toInt, edge.dstId.toInt)
+                }
+            case filePath =>
+                sc.textFile(filePath, 1) filter { ! _.startsWith("#")
+                } map { _.split("\\s+") } map {
+                    case Array(x: String, y: String) => (x.toInt, y.toInt)
+                }
+        } map { _.cache }
 
-        val graph = makeUndirected(inputGraph).cache
+        optionalGraph foreach { inputGraph =>
 
-//        println(graph.collectAsMap)
-//        val result = connectedComponents(graph)
-//        println(result.collect.toSeq)
+            val graph = makeUndirected(inputGraph).cache
 
-        val series = allCatch.opt { args(1).toInt } getOrElse(4)
+//            println(graph.collectAsMap)
+//            val result = connectedComponents(graph)
+//            println(result.collect.toSeq)
 
-//        val time = runSeries(graph, series)
-//        println(time / 1000.0 / series)
+            val series = allCatch.opt { args(2).toInt } getOrElse(4)
 
-        val (time, timedev) = runSeriesMeanDev(graph, series)
-        println(s"${time / 1000.0} ${timedev / 1000.0}")
+//            val time = runSeries(graph, series)
+//            println(time / 1000.0 / series)
+
+            val (time, timedev) = runSeriesMeanDev(graph, series)
+            println(s"${time / 1000.0} ${timedev / 1000.0}")
+        }
 
         sc.stop()
     }
