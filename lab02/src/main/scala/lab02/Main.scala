@@ -91,7 +91,7 @@ object Main {
         val optionalGraph = allCatch.opt { args(3) } map {
             case "generate" =>
                 val vertices = allCatch.opt { args(4).toInt } getOrElse 100
-                GraphGenerators.logNormalGraph(sc, vertices, 1).edges.map {
+                GraphGenerators.logNormalGraph(sc, vertices, seed = 1).edges.map {
                     edge => (edge.srcId.toInt, edge.dstId.toInt)
                 }
             case filePath =>
