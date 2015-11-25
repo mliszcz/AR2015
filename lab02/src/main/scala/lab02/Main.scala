@@ -5,6 +5,7 @@ import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
 import org.apache.spark.graphx.util.GraphGenerators
+import org.apache.spark.HashPartitioner
 import scala.annotation.tailrec
 import scala.util.control.Exception._
 
@@ -29,7 +30,9 @@ object Main {
 
     def connectedComponents(graph: IntMapRDD): RDD[Iterable[Int]] = {
 
-        val connections = graph.groupByKey.cache
+        val connections = graph.groupByKey
+//            .partitionBy(new HashPartitioner(2))
+            .cache
         val initWeights = connections map { case (k, _) => (k, k) } cache
 
         @tailrec

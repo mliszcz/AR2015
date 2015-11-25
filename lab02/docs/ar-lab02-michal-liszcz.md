@@ -1,6 +1,6 @@
 % Algorytmy równoległe 2015 (zad. 2)
 % Michał Liszcz
-% 2015-11-10
+% 2015-11-25
 
 ---
 geometry: margin=6em
@@ -51,8 +51,6 @@ o zadanych indeksach, przykładowo:
 8 9
 
 \end{lstlisting}
-
-*TODO: rysunek grafu*
 
 Struktura taka ma bezpośrednie przełożenie na \texttt{RDD}:
 
@@ -190,7 +188,8 @@ $lscpu
 \end{lstlisting}
 
 **UWAGA**: Na potrzeby testów konfigurowałem **lokalną instalację**
-Apache Spark (\texttt{--master local[X]}).
+Apache Spark (\texttt{--master local[X]}). Komunikacja odbywa się w obrębe
+jednej instancji maszyny wirtualnej Java.
 
 ## Graf testowy
 
@@ -266,7 +265,48 @@ procesorów. Niepewności oszacowałem metodą różniczki zupełnej.
 
 # Podział danych zgodnie z PCAM
 
+Rozważanie platformy Apache Spark w kontekście metodologii PCAM niesie ze
+sobą pewne ograniczenia, wynikające z braku pełnej kontroli nad podziałem
+zadań i komunikacją.
 
+## Partitioning
+
+Optymalny (ze względu na komunikację) przydział wierzchołków do procesorów
+to przydzielenie wszytkich połączonych wierzchołków o jednego procesora.
+
+Jest to równoważne problemowi znalezienia spójnych składowych, który próbujemy
+rozwiązać. Przy reprezentacji grafu pozostaje wykorzystanie standardowego
+partycjonowania.
+
+## Komunikacja
+
+W pętli algorytmu wielokrotnie wykonywane są złączenia (*join*) zbiorów
+o mocy równej liczbie wierzchołków w grafie. Może to stanowić wąskie gardło
+w konfiguracji gdzie program jest uruchomiony na klastrze zbudowanym z maszyn
+komunikujących się przez sieć.
+
+## Agglomeration
+
+Uwzględniając komunikację, można dokonać ponownego podziału danych,
+z wykorzystaniem mechanizmu \texttt{Partitioner}, udostępnionego przez
+Apache Spark.
+
+Rozwiązanie analogiczne do przedstawionego w  \cite{spark} zakłada podział
+zbiorów na podstawie funkcji haszującej zastosowanej dla kluczy (indeksów
+wierzchołków).
+
+\begin{lstlisting}[frame=single]
+val connections = graph.groupByKey
+    .partitionBy(new HashPartitioner(4))
+    .cache
+\end{lstlisting}
+
+**Niestety w lokalnej konfiguracji nie zaobserwowałem poprawy wydajności.**
+
+## Mapping
+
+Przydziałem zadań do procesorów zajmuje się platforma Spark. Użytkownik
+nie kontroluje w bezpośredni sposób tego procesu.
 
 # Dyskusja wyników
 
@@ -275,14 +315,20 @@ procesorów. Niepewności oszacowałem metodą różniczki zupełnej.
 \begin{thebibliography}{9}
 
 \bibitem{pregel}
-  R. Zadeh,
+  Zadeh, R.,
   \emph{Distributed Algorithms and Optimizations},
   \url{http://stanford.edu/~rezab/dao/notes/lec8.pdf},
   2008.
 
 \bibitem{foster}
-  Ian Foster,
+  Foster, I.,
   \emph{Designing and Building Parallel Programs},
   \url{www.mcs.anl.gov/~itf/dbpp/}.
+
+\bibitem{spark}
+  Zaharia, M.,
+  \emph{Advanced Spark Features},
+  \url{http://ampcamp.berkeley.edu/wp-content/uploads/2012/06/matei-zaharia-amp-camp-2012-advanced-spark.pdf},
+  2012.
 
 \end{thebibliography}
