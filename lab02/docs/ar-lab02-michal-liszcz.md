@@ -162,8 +162,8 @@ Intel Core i5-4200u, 2C/4T. Docelowo testy będą przeprowadzone na klastrze
 Zeus w ACK Cyfronet AGH.
 
 Do testów wybrałem zbiór *ca-GrQc*
-\footnote{https://snap.stanford.edu/data/ca-GrQc.html} o 5242 wierzchołkach
-i 14496 krawędziach.
+\footnote{\url{https://snap.stanford.edu/data/ca-GrQc.html}}
+o 5242 wierzchołkach i 14496 krawędziach.
 
 Ilość procesorów dostępnych dla Apache Spark zmieniałem w zakresie 1-4.
 W każdym wypadku pomiar powtórzyłem czterokrotnie. Wyniki przedstawia
@@ -180,7 +180,93 @@ Widać nieznaczny wzrost wydajności.
 
 # Testy na klastrze Zeus
 
-*TODO*
+**Z powodu problemów z dostępem do klastra Zeus, testy przeprowadziłem na
+maszynie wyposażonej w dwa procesory Intel Xeon E5-2697 v2
+\footnote{\url{http://ark.intel.com/products/75283/Intel-Xeon-Processor-E5-2697-v2-30M-Cache-2\_70-GHz}}
+(12C/24T, łącznie 48 logicznych procesorów).**
+
+\begin{lstlisting}[frame=single]
+$lscpu
+\end{lstlisting}
+
+**UWAGA**: Na potrzeby testów konfigurowałem **lokalną instalację**
+Apache Spark (\texttt{--master local[X]}).
+
+## Graf testowy
+
+Do testów wydajności wykorzystałem graf *web-Stanford*
+\footnote{\url{https://snap.stanford.edu/data/web-Stanford.html}}.
+
+Na graf testowy składało się 281'903 wierzchołków i 2'312'497 krawędzi.
+
+## Losowo generowane grafy
+
+Drugi wariant zakładał testy na losowo wygenerowanym grafie. Wykorzystałem
+obiekt \texttt{GraphGenerators}.
+\footnote{\url{http://spark.apache.org/docs/latest/api/scala/\#org.apache.spark.graphx.util.GraphGenerators$}}
+
+Generator pozwala na stworzenie grafu o zadanej liczbie wierzchołków i
+losowych krawędziach, przy czym stopnie wierzchołków grafu są losowane z
+rozkładem logarytmicznie normalnym.
+
+Wygenerowany graf można przekształcić na opisany wcześniej \texttt{IntMapRDD}:
+
+\begin{lstlisting}[frame=single]
+GraphGenerators.logNormalGraph(sc, vertices, seed = 1).edges.map {
+    edge => (edge.srcId.toInt, edge.dstId.toInt)
+}
+\end{lstlisting}
+
+Przyjąłem stałą wartość dla ziarna generatora pseudolosowego, aby zapewnić
+porównywalność wyników uzyskanych w kolejnych uruchomieniach.
+
+## Wyniki
+
+Dla ustalonego rozmiaru klastra mierzyłem czas wyznaczania spójnych składowych.
+W każdym przypadku pomiar powtórzyłem czterokrotnie. Jako niepewność przyjąłem
+odchylenie standardowe średniej otrzymanych wyników.
+
+Wykorzystałem następujące definicje przyspieszenia $S(x,p)$ i efektywności
+$E(x,p)$:
+
+\begin{equation}
+S(x,p) = \frac{T(x,1)}{T(x,p)}
+\end{equation}
+
+\begin{equation}
+E(x,p) = \frac{S(x,p)}{p}
+\end{equation}
+
+W powyższych definicjach $x$ oznacza rozmiar problem, natomiast $p$ to liczba
+procesorów. Niepewności oszacowałem metodą różniczki zupełnej.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/t440-random-5000.txt-time}.png}
+    \caption{Czas wykonania programu - losowy graf o 5000 wierzchołkach
+        (logNormalGraph)}
+    \label{fig:t440-random-5000-time}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/t440-random-5000.txt-speedup}.png}
+    \caption{Przyspieszenie programu - losowy graf o 5000 wierzchołkach
+        (logNormalGraph)}
+    \label{fig:t440-random-5000-speedup}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/t440-random-5000.txt-efficiency}.png}
+    \caption{Efektywność programu - losowy graf o 5000 wierzchołkach
+        (logNormalGraph)}
+    \label{fig:t440-random-5000-efficiency}
+\end{figure}
+
+# Podział danych zgodnie z PCAM
+
+
 
 # Dyskusja wyników
 
