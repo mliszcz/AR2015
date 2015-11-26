@@ -193,10 +193,11 @@ jednej instancji maszyny wirtualnej Java.
 
 ## Graf testowy
 
-Do testów wydajności wykorzystałem graf *web-Stanford*
-\footnote{\url{https://snap.stanford.edu/data/web-Stanford.html}}.
-
-Na graf testowy składało się 281'903 wierzchołków i 2'312'497 krawędzi.
+Do testów wydajności wykorzystałem graf *p2p-Gnutella24*
+\footnote{\url{https://snap.stanford.edu/data/p2p-Gnutella24.html}}.
+(26'518 wierzchołków i 65'369 krawędzi), *p2p-Gnutella31*
+\footnote{\url{https://snap.stanford.edu/data/p2p-Gnutella31.html}}.
+(62'586 wierzchołków i 147'892 krawędzi) oraz użyty wcześniej *ca-GrQc*.
 
 ## Losowo generowane grafy
 
