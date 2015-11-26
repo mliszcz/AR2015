@@ -179,8 +179,8 @@ Widać nieznaczny wzrost wydajności.
 # Testy na klastrze Zeus
 
 **Z powodu problemów z dostępem do klastra Zeus, testy przeprowadziłem na
-maszynie wyposażonej w dwa procesory Intel Xeon E5-2697 v2
-\footnote{\url{http://ark.intel.com/products/75283/Intel-Xeon-Processor-E5-2697-v2-30M-Cache-2\_70-GHz}}
+maszynie wyposażonej w dwa procesory Intel Xeon E5-2680 v3
+\footnote{\url{http://ark.intel.com/products/81908/Intel-Xeon-Processor-E5-2680-v3-30M-Cache-2\_50-GHz}}
 (12C/24T, łącznie 48 logicznych procesorów).**
 
 \begin{lstlisting}[frame=single]
@@ -216,9 +216,9 @@ jednej instancji maszyny wirtualnej Java.
 ## Graf testowy
 
 Do testów wydajności wykorzystałem graf *p2p-Gnutella24*
-\footnote{\url{https://snap.stanford.edu/data/p2p-Gnutella24.html}}.
+\footnote{\url{https://snap.stanford.edu/data/p2p-Gnutella24.html}}
 (26'518 wierzchołków i 65'369 krawędzi), *p2p-Gnutella31*
-\footnote{\url{https://snap.stanford.edu/data/p2p-Gnutella31.html}}.
+\footnote{\url{https://snap.stanford.edu/data/p2p-Gnutella31.html}}
 (62'586 wierzchołków i 147'892 krawędzi) oraz użyty wcześniej *ca-GrQc*.
 
 ## Losowo generowane grafy
@@ -262,29 +262,109 @@ E(x,p) = \frac{S(x,p)}{p}
 W powyższych definicjach $x$ oznacza rozmiar problem, natomiast $p$ to liczba
 procesorów. Niepewności oszacowałem metodą różniczki zupełnej.
 
+Liczbę węzłow zmieniałem w zakresie od 1 do 12. Powyżej tej ilości nie było
+widać żadnej poprawy, natomiast występował spadek wydajności.
+
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{{../results/images/t440-random-5000.txt-time}.png}
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-random-5000-12.txt-time}.png}
     \caption{Czas wykonania programu - losowy graf o 5000 wierzchołkach
         (logNormalGraph)}
-    \label{fig:t440-random-5000-time}
+    \label{fig:krling113-random-5000-time}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{{../results/images/t440-random-5000.txt-speedup}.png}
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-random-5000-12.txt-speedup}.png}
     \caption{Przyspieszenie programu - losowy graf o 5000 wierzchołkach
         (logNormalGraph)}
-    \label{fig:t440-random-5000-speedup}
+    \label{fig:krling113-random-5000-speedup}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{{../results/images/t440-random-5000.txt-efficiency}.png}
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-random-5000-12.txt-efficiency}.png}
     \caption{Efektywność programu - losowy graf o 5000 wierzchołkach
         (logNormalGraph)}
-    \label{fig:t440-random-5000-efficiency}
+    \label{fig:krling113-random-5000-efficiency}
 \end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-random-10000.txt-time}.png}
+    \caption{Czas wykonania programu - losowy graf o 10000 wierzchołkach
+        (logNormalGraph)}
+    \label{fig:krling113-random-10000-time}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-random-10000.txt-speedup}.png}
+    \caption{Przyspieszenie programu - losowy graf o 10000 wierzchołkach
+        (logNormalGraph)}
+    \label{fig:krling113-random-10000-speedup}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-random-10000.txt-efficiency}.png}
+    \caption{Efektywność programu - losowy graf o 10000 wierzchołkach
+        (logNormalGraph)}
+    \label{fig:krling113-random-10000-efficiency}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-random-50000.txt-time}.png}
+    \caption{Czas wykonania programu - losowy graf o 50000 wierzchołkach
+        (logNormalGraph)}
+    \label{fig:krling113-random-50000-time}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-random-50000.txt-speedup}.png}
+    \caption{Przyspieszenie programu - losowy graf o 50000 wierzchołkach
+        (logNormalGraph)}
+    \label{fig:krling113-random-50000-speedup}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-random-50000.txt-efficiency}.png}
+    \caption{Efektywność programu - losowy graf o 50000 wierzchołkach
+        (logNormalGraph)}
+    \label{fig:krling113-random-50000-efficiency}
+\end{figure}
+
+
+Wyniki dla rzeczywistego grafu okazały się znacznie gorsze.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-p2p-Gnutella24.txt-time}.png}
+    \caption{Czas wykonania programu - graf p2p-Gnutella24}
+    \label{fig:krling113-p2p-gnutella24-time}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-p2p-Gnutella24.txt-speedup}.png}
+    \caption{Czas wykonania programu - graf p2p-Gnutella24}
+    \label{fig:krling113-p2p-gnutella24-speedup}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{../results/images/krling113-p2p-Gnutella24.txt-efficiency}.png}
+    \caption{Czas wykonania programu - graf p2p-Gnutella24}
+    \label{fig:krling113-p2p-gnutella24-efficiency}
+\end{figure}
+
 
 # Podział danych zgodnie z PCAM
 
@@ -331,9 +411,6 @@ val connections = graph.groupByKey
 Przydziałem zadań do procesorów zajmuje się platforma Spark. Użytkownik
 nie kontroluje w bezpośredni sposób tego procesu.
 
-# Dyskusja wyników
-
-*TODO*
 
 \begin{thebibliography}{9}
 
