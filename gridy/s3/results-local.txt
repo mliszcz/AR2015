@@ -1,0 +1,35 @@
+(michal4@michal-pc) ~/Documents/studia/gridy-aws/s3 $ ./benchmark-cli.sh 1M 1
+ERROR: Bucket 'tmp-cli-20151129_002831' does not exist
+Bucket 's3://tmp-cli-20151129_002831/' removed
+Bucket 's3://tmp-cli-20151129_002831/' created
+1M | UP   | 5.655393884 s | .17682234350275009067 MBps
+1M | DOWN | 2.658395599 s | .37616673770305922026 MBps
+WARNING: Bucket is not empty. Removing all the objects from it first. This may take some time...
+File s3://tmp-cli-20151129_002831/1M_up_1.dat deleted
+Bucket 's3://tmp-cli-20151129_002831/' removed
+
+(michal4@michal-pc) ~/Documents/studia/gridy-aws/s3 $ ./benchmark-cli.sh 10M 1
+ERROR: Bucket 'tmp-cli-20151129_002855' does not exist
+Bucket 's3://tmp-cli-20151129_002855/' removed
+Bucket 's3://tmp-cli-20151129_002855/' created
+10M | UP   | 51.626167363 s | .19370022046546318209 MBps
+10M | DOWN | 9.657703191 s | 1.03544287935033931402 MBps
+WARNING: Bucket is not empty. Removing all the objects from it first. This may take some time...
+File s3://tmp-cli-20151129_002855/10M_up_1.dat deleted
+Bucket 's3://tmp-cli-20151129_002855/' removed
+
+(michal4@michal-pc) ~/Documents/studia/gridy-aws/s3/app $ sbt "run 1M 1"
+[info] Loading project definition from /home/michal4/Documents/studia/gridy-aws/s3/app/project
+[info] Set current project to aws-s3-lab (in build file:/home/michal4/Documents/studia/gridy-aws/s3/app/)
+[info] Running s3lab.Main 1M 1
+1M | UP   | 5.288 s | 0.18910741301059 MBps
+1M | DOWN | 3.362 s | 0.297441998810232 MBps
+[success] Total time: 13 s, completed Nov 29, 2015 12:40:52 AM
+
+(michal4@michal-pc) ~/Documents/studia/gridy-aws/s3/app $ sbt "run 10M 1"
+[info] Loading project definition from /home/michal4/Documents/studia/gridy-aws/s3/app/project
+[info] Set current project to aws-s3-lab (in build file:/home/michal4/Documents/studia/gridy-aws/s3/app/)
+[info] Running s3lab.Main 10M 1
+10M | UP   | 53.448 s | 0.1870977398593025 MBps
+10M | DOWN | 8.399 s | 1.1906179307060365 MBps
+[success] Total time: 67 s, completed Nov 29, 2015 12:42:08 AM
