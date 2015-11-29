@@ -1,0 +1,104 @@
+ubuntu@ip-172-31-28-107:~/AR2015/gridy/s3$ ./benchmark-cli.sh 1M 1
+ERROR: Bucket 'tmp-cli-20151129_114214' does not exist
+Bucket 's3://tmp-cli-20151129_114214/' removed
+Bucket 's3://tmp-cli-20151129_114214/' created
+1M | UP   | .975368547 s | 1.02525348297908564812 MBps
+1M | DOWN | 1.596445150 s | .62639170534609347524 MBps
+WARNING: Bucket is not empty. Removing all the objects from it first. This may take some time...
+File s3://tmp-cli-20151129_114214/1M_up_1.dat deleted
+Bucket 's3://tmp-cli-20151129_114214/' removed
+
+ubuntu@ip-172-31-28-107:~/AR2015/gridy/s3$ ./benchmark-cli.sh 1M 10
+ERROR: Bucket 'tmp-cli-20151129_114224' does not exist
+Bucket 's3://tmp-cli-20151129_114224/' removed
+Bucket 's3://tmp-cli-20151129_114224/' created
+1M | UP   | 8.765654457 s | 1.14081613062151760792 MBps
+1M | DOWN | 20.714913087 s | .48274399984210756828 MBps
+WARNING: Bucket is not empty. Removing all the objects from it first. This may take some time...
+File s3://tmp-cli-20151129_114224/1M_up_1.dat deleted
+File s3://tmp-cli-20151129_114224/1M_up_10.dat deleted
+File s3://tmp-cli-20151129_114224/1M_up_2.dat deleted
+File s3://tmp-cli-20151129_114224/1M_up_3.dat deleted
+File s3://tmp-cli-20151129_114224/1M_up_4.dat deleted
+File s3://tmp-cli-20151129_114224/1M_up_5.dat deleted
+File s3://tmp-cli-20151129_114224/1M_up_6.dat deleted
+File s3://tmp-cli-20151129_114224/1M_up_7.dat deleted
+File s3://tmp-cli-20151129_114224/1M_up_8.dat deleted
+File s3://tmp-cli-20151129_114224/1M_up_9.dat deleted
+Bucket 's3://tmp-cli-20151129_114224/' removed
+
+ubuntu@ip-172-31-28-107:~/AR2015/gridy/s3$ ./benchmark-cli.sh 10M 1
+ERROR: Bucket 'tmp-cli-20151129_114309' does not exist
+Bucket 's3://tmp-cli-20151129_114309/' removed
+Bucket 's3://tmp-cli-20151129_114309/' created
+10M | UP   | 1.393322873 s | 7.17708737420547606269 MBps
+10M | DOWN | 5.206496447 s | 1.92067738868083395428 MBps
+WARNING: Bucket is not empty. Removing all the objects from it first. This may take some time...
+File s3://tmp-cli-20151129_114309/10M_up_1.dat deleted
+Bucket 's3://tmp-cli-20151129_114309/' removed
+
+ubuntu@ip-172-31-28-107:~/AR2015/gridy/s3$ ./benchmark-cli.sh 100M 1
+ERROR: Bucket 'tmp-cli-20151129_114331' does not exist
+Bucket 's3://tmp-cli-20151129_114331/' removed
+Bucket 's3://tmp-cli-20151129_114331/' created
+100M | UP   | 15.927899012 s | 6.27829194074249822346 MBps
+100M | DOWN | 22.469215534 s | 4.45053365786989116876 MBps
+WARNING: Bucket is not empty. Removing all the objects from it first. This may take some time...
+File s3://tmp-cli-20151129_114331/100M_up_1.dat deleted
+Bucket 's3://tmp-cli-20151129_114331/' removed
+
+###############################################################################
+# API S3
+
+ubuntu@ip-172-31-28-107:~/AR2015/gridy/s3/app$ sbt "run s3 1M 1"
+[info] Loading project definition from /home/ubuntu/AR2015/gridy/s3/app/project
+[info] Set current project to aws-s3-lab (in build file:/home/ubuntu/AR2015/gridy/s3/app/)
+[info] Running s3lab.Main s3 1M 1
+1M | UP   | 1.143 s | 0.8748906386701663 MBps
+1M | DOWN | 1.858 s | 0.5382131324004306 MBps
+[success] Total time: 7 s, completed Nov 29, 2015 11:53:12 AM
+
+ubuntu@ip-172-31-28-107:~/AR2015/gridy/s3/app$ sbt "run s3 10M 1"
+[info] Loading project definition from /home/ubuntu/AR2015/gridy/s3/app/project
+[info] Set current project to aws-s3-lab (in build file:/home/ubuntu/AR2015/gridy/s3/app/)
+[info] Running s3lab.Main s3 10M 1
+10M | UP   | 1.758 s | 5.688282138794084 MBps
+10M | DOWN | 10.885 s | 0.9186954524575104 MBps
+[success] Total time: 16 s, completed Nov 29, 2015 11:53:44 AM
+
+ubuntu@ip-172-31-28-107:~/AR2015/gridy/s3/app$ sbt "run s3 100M 1"
+[info] Loading project definition from /home/ubuntu/AR2015/gridy/s3/app/project
+[info] Set current project to aws-s3-lab (in build file:/home/ubuntu/AR2015/gridy/s3/app/)
+[info] Running s3lab.Main s3 100M 1
+100M | UP   | 7.996 s | 12.506253126563282 MBps
+100M | DOWN | 23.409 s | 4.2718612499466015 MBps
+[success] Total time: 35 s, completed Nov 29, 2015 11:54:30 AM
+ubuntu@ip-172-31-28-107:~/AR2015/gridy/s3/app$
+
+###############################################################################
+# API RRS
+
+[success] Total time: 35 s, completed Nov 29, 2015 11:54:30 AM
+ubuntu@ip-172-31-28-107:~/AR2015/gridy/s3/app$ sbt "run rrs 1M 1"
+[info] Loading project definition from /home/ubuntu/AR2015/gridy/s3/app/project
+[info] Set current project to aws-s3-lab (in build file:/home/ubuntu/AR2015/gridy/s3/app/)
+[info] Running s3lab.Main rrs 1M 1
+1M | UP   | 0.875 s | 1.1428571428571428 MBps
+1M | DOWN | 1.906 s | 0.5246589716684156 MBps
+[success] Total time: 6 s, completed Nov 29, 2015 11:55:52 AM
+
+ubuntu@ip-172-31-28-107:~/AR2015/gridy/s3/app$ sbt "run rrs 10M 1"
+[info] Loading project definition from /home/ubuntu/AR2015/gridy/s3/app/project
+[info] Set current project to aws-s3-lab (in build file:/home/ubuntu/AR2015/gridy/s3/app/)
+[info] Running s3lab.Main rrs 10M 1
+10M | UP   | 1.509 s | 6.626905235255136 MBps
+10M | DOWN | 4.573 s | 2.186748305270063 MBps
+[success] Total time: 10 s, completed Nov 29, 2015 11:56:18 AM
+
+ubuntu@ip-172-31-28-107:~/AR2015/gridy/s3/app$ sbt "run rrs 100M 1"
+[info] Loading project definition from /home/ubuntu/AR2015/gridy/s3/app/project
+[info] Set current project to aws-s3-lab (in build file:/home/ubuntu/AR2015/gridy/s3/app/)
+[info] Running s3lab.Main rrs 100M 1
+100M | UP   | 6.949 s | 14.390559792775939 MBps
+100M | DOWN | 18.729 s | 5.3393133643013515 MBps
+[success] Total time: 30 s, completed Nov 29, 2015 11:57:21 AM
