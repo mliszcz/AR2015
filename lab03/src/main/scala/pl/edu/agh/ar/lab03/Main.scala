@@ -21,18 +21,21 @@ object Main {
 
     def main(args: Array[String]) = {
 
-        val taskCount = 3
+        val taskCount = 6
         val machineCount = 3
 
-        val tasks = Seq.fill(taskCount)(prng.nextDouble)
+        val deadline = 30.0
+        val unitCost = 10.0
+
+        val tasks = Seq.fill(taskCount)(prng.nextGaussian).map(Math.abs).map(_*10.0)
             .zipWithIndex.map(_.swap).map(Task.tupled).toList
 
         val machines = (0 to machineCount-1).map(Machine.apply).toList
 
-        val tree = buildMappingTree(tasks, machines)
+        val tree = buildMappingTree(tasks, machines, deadline, unitCost)
 
-        println(tasks)
-        println(machines)
+        println(s"   tasks: $tasks")
+        println(s"machines: $machines")
 
         tree.foreach(t => {
             pprint.pprintln(t)
@@ -41,7 +44,18 @@ object Main {
     }
 
     def buildMappingTree(tasks: List[Task],
-                         machines: List[Machine]): Option[MappingTree] = {
+                         machines: List[Machine],
+                         deadline: Double,
+                         unitCost: Double): Option[MappingTree] = {
+
+        def evaluateSolution(mapping: Mapping) =
+            mapping.groupBy(_._2).mapValues(_.map(_._1)).values
+            .foldLeft((0.0, 0.0))({
+                case ((maxTimespan, totalCost), tasks) =>
+                    val time = tasks.map(_.duration).sum
+                    val cost = Math.ceil(time) * unitCost
+                    (Math.max(time, maxTimespan), totalCost + cost)
+                })
 
         def step(task: Task,
                  machine: Machine,
@@ -54,28 +68,48 @@ object Main {
                 case Nil => (usedMachines, Nil)
                 case next :: rest => (next :: usedMachines, rest)
             }
-            println(s"usedMachines: $usedMachines")
-            println(s"freeMachines: $freeMachines")
-
-            println(s"newUsedMachines: $newUsedMachines")
-            println(s"newFreeMachines: $newFreeMachines")
-
-            println(s"node with $task -> $machine")
-            println(s"mapping children $usedMachines")
 
             val mapping = parentMapping + (task -> machine)
+            val machines = mapping.groupBy(_._2).keySet
+            val (maxTimespan, totalCost) = evaluateSolution(mapping)
 
-            new MappingTree(mapping,
-                            restTasks.headOption.map { nextTask =>
-                                newUsedMachines.map { nextMachine =>
-                                    step(nextTask,
-                                         nextMachine,
-                                         mapping,
-                                         restTasks.tail,
-                                         newUsedMachines,
-                                         newFreeMachines)
+            // no more tasks - print solution
+            if (restTasks.size == 0) {
+                println(s"""
+                    |solution accepted:
+                    |machines=${machines.size}
+                    |timespan=$maxTimespan
+                    |totalCost=$totalCost
+                    |mapping=$mapping
+                    """.stripMargin.replaceAll("\n", " "))
+            }
+
+            new MappingTree(
+                    mapping,
+                    restTasks.headOption.map { nextTask =>
+                        newUsedMachines
+                            .filter { nextMachine =>
+                                val nextMapping = mapping +
+                                        (nextTask -> nextMachine)
+                                val (time, _) = evaluateSolution(nextMapping)
+
+                                if (time >= deadline) {
+                                    println(s"""ignoring tasks with
+                                        |${restTasks.tail.length} remaining
+                                        """.stripMargin.replaceAll("\n", " "))
                                 }
-                            } getOrElse(Nil))
+
+                                time < deadline
+                             }
+                            .map { nextMachine =>
+                                step(nextTask,
+                                     nextMachine,
+                                     mapping,
+                                     restTasks.tail,
+                                     newUsedMachines,
+                                     newFreeMachines)
+                            }
+                        } getOrElse(Nil))
         }
 
         (tasks, machines) match {
@@ -89,25 +123,4 @@ object Main {
             case _ => None
         }
     }
-
-//    def buildMappingTree(tasks: List[Task],
-//                         target: Machine,
-//                         usedMachines: List[Machine],
-//                         freeMachines: List[Machine]): MappingTree
-//        = tasks match {
-//
-//        case Nil => new MappingTree(None, Seq())
-//        case task :: rest =>
-//            val (newFreeMachines, newUsedMachines) = freeMachines match {
-//                case Nil => (Nil, usedMachines)
-//                case h :: t => (t, h :: usedMachines)
-//            }
-//            new MappingTree(Some(task -> target),
-//                    newUsedMachines.map { machine =>
-//                        buildMappingTree(rest,
-//                                         machine,
-//                                         newUsedMachines,
-//                                         newFreeMachines)
-//                    })
-//    }
 }

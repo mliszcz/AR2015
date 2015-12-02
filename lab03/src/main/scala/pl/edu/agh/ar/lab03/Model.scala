@@ -6,10 +6,6 @@ package object Model {
 
     case class Machine(val id: Int)
 
-    object Machine {
-        val unitCost = 10.0
-    }
-
     case class Tree[T](val node: T, val children: Seq[Tree[T]])
 
     type Mapping = Map[Task, Machine]
