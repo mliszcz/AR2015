@@ -14,5 +14,6 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies ++= Seq(
+    "com.typesafe.akka" %% "akka-actor" % "2.4.1",
     "com.lihaoyi" %% "pprint" % "0.3.6"
 )
