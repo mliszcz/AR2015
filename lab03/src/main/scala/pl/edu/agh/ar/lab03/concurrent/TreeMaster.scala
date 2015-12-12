@@ -67,11 +67,11 @@ class TreeMaster(
 
         case WorkDoneMsg((newWork, mapping)) =>
 
-            if (wdRecv) {
-                println("WORK DONE")
-                println((System.currentTimeMillis - startTime)/1000.0)
-                wdRecv = false
-            }
+//            if (wdRecv) {
+//                println("WORK DONE")
+//                println((System.currentTimeMillis - startTime)/1000.0)
+//                wdRecv = false
+//            }
 
 
 

@@ -16,7 +16,7 @@ object ConcurrentSolution {
 
     implicit val system = ActorSystem("TreeSystem")
 
-    val workerCount = 2
+    val workerCount = 4
 
     val master = system.actorOf(props = Props(new TreeMaster(tasks,
                                                              machines,

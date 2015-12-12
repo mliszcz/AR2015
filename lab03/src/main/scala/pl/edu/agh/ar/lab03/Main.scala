@@ -23,13 +23,13 @@ object Main {
 
     def main(args: Array[String]) = {
 
-        val taskCount = 13//6
+        val taskCount = 12//6
         val machineCount = 5//3
 
-        val deadline = 30.0
+        val deadline = 21.0
         val unitCost = 10.0
 
-        val tasks = Seq.fill(taskCount)(prng.nextGaussian)
+        val tasks = Seq.fill(taskCount)(prng.nextDouble)
             .map(Math.abs).map(_*10.0)
             .zipWithIndex.map(_.swap).map(Task.tupled).toList
 

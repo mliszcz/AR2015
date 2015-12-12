@@ -16,7 +16,7 @@ class TreeWorker(
     val deadline: Double,
     val unitCost: Double) extends Actor {
 
-    val STEPS = 10
+    val STEPS = 5
 
     var totalWork = 0
     var discardedWork = 0
