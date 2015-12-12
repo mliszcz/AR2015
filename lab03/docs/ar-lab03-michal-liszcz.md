@@ -1,6 +1,6 @@
 % Algorytmy równoległe 2015 (zad. 3)
 % Michał Liszcz
-% 2015-12-02
+% 2015-12-12
 
 ---
 geometry: margin=6em
@@ -187,7 +187,11 @@ Tree(
 
 # Algorytm równoległy
 
-## Partitioning
+Ten rozdział opisuje podejście równoległe do przedstawionego wcześniej problemu.
+
+## Metodologia PCAM
+
+### Partitioning
 
 Można rozważać następujący podział:
 
@@ -196,13 +200,13 @@ Można rozważać następujący podział:
 Wyznaczenie wartości jednego węzła jest jednak bardzo proste pod względem
 obliczeniowym, natomiast duża liczba węzłów wygeneruje dużą ilość komunikacji.
 
-## Communication
+### Communication
 
 Należy ograniczyć czas potrzebny na komunikację względem czasu obliczeń.
 W tym celu trzeba zmniejszyć ilość komunikacji i zwiększyć rozmiar pojedynczego
 zadania. Można to osiągnąć poprzez sklejenie węzłów w poddrzewa.
 
-## Agglomeration
+### Agglomeration
 
 Należy złączyć ze sobą węzły, tworzą poddrzewa.
 Maksymalną wysokość pojedynczego poddrzewa można uzależnić:
@@ -213,7 +217,7 @@ Maksymalną wysokość pojedynczego poddrzewa można uzależnić:
 
 Te wartości najlepiej będzie dobrać empirycznie.
 
-## Mapping
+### Mapping
 
 Proponuję rozwiązanie z pulą problemów:
 
@@ -227,6 +231,261 @@ Proponuję rozwiązanie z pulą problemów:
   umieszcza w puli
 * kolejne procesory pobierają zadania z puli w miarę swoich możliwości
 
+
+## Implementacja
+
+Opisane powyżej rozwiązanie zaimplementowałem w języku Scala, wykorzystując
+bibliotekę Akka.
+
+### Opis algorytmu
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{ar-lab03-tree.png}
+    \caption{Drzewo przypisania zadań do maszyn. Czerwony prostokąt to
+      przykładowa \textit{praca}, wykonywana przez jeden procesor - poddrzewo o
+      zadanej wysokości. Żółty protokąt to praca początkowa. Wykonanie pracy
+      powoduje utworzenie nowego zestawu prac do wykonania lub zbioru wyników,
+      jeżeli osiągnięte zostały liście drzewa (niebieski prostokąt).}
+\end{figure}
+
+Poniższy listing przedstawia komunikaty wymieniane między procesami w systemie:
+\begin{lstlisting}[frame=single]
+package object Messages {
+
+    case class WorkDescription(
+        val task: Task,
+        val machine: Machine,
+        val parentMapping: Mapping,
+        val restTasks: List[Task],
+        val usedMachines: List[Machine],
+        val freeMachines: List[Machine])
+
+    case class WorkRequestMsg()
+
+    case class WorkAssignmentMsg(val work: WorkDescription)
+
+    type WorkResult = Tuple2[Seq[WorkDescription], Seq[Mapping]]
+
+    case class WorkDoneMsg(val newWorkAndSolutions: WorkResult)
+
+    case class WorkDoneAckMsg()
+
+    case class ReportRequestMsg()
+
+    case class ReportResponseMsg(val totalWork: Int,
+                                 val discardedWork: Int)
+}
+\end{lstlisting}
+
+W systemie wyróżnione są dwa typy procesów:
+
+* `TreeMaster` - proces zajmujący się przydziałem zadań i zbieraniem wyników.
+  Jest jeden taki proces.
+* `TreeWorker` - proces liczący, przetwarzający porcję pracy. Jest wiele takich
+  procesów.
+
+Rozwiązanie zadanego problemu to skonstruowanie drzewa, którego liście będą
+zawierać szukane rozwiazania.
+
+W podejściu równoległym zrezygnowałem z fizycznego budowania drzewa.
+Zamiast tego zdefiniowałem *pracę*. Najmniejsza porcja pracy to przypisanie
+jednego zadania do jednej maszyny - równoważnie konstrukcja pojedynczego węzła
+w drzewie.
+
+Wynikiem wykonania takiej pracy może być:
+
+* rozwiązanie - jeżeli nie ma więcej zadań do zakolejkowania,
+* więcej pracy - jeżeli trzeba obliczyć kolejne węzły w drzewie (dzieci).
+
+Początkowo do wykonania jest tylko jedna praca, polegająca na przetworzeniu
+korzenia drzewa. Pierwszy `TreeWorker` który zgłosi swoją gotowość do
+`TreeMaster` otrzyma to zadanie do wykonania. Zwróconym wynikiem będzie zestaw
+prac polegających na przetworzeniu potomków korzenia. Kolejne `TreeWorker`
+otrzymają te zadania.
+
+Aby uniknąć nadmiernej komunikacji, jeden procesor może wykonać kilka etapów
+pracy, w sposób transparentny dla `TreeMaster`. Jest to równoważne
+przetworzeniu poddrzewa o zadanej głebokości.
+
+Moje rozwiązanie zakłada stałą wysokość takiego poddrzewa. Przy jej dobraniu
+należy pamiętać że ma ona bezpośredni wpływ na część sekwencyjną algorytmu -
+początkowo jest tylko jedna praca do wykonania i dopóki nie zostanie skończona,
+inne procesory czekają bezczynnie.
+
+Przyjęcie małej wysokości poddrzewa powoduje zmniejszenie czasu potrzebnego na
+wykonanie pojedynczej pracy i równocześnie zwiększenie ilości takich prac.
+Przekłada się to na mniejszą część sekwencyjną (pierwsza praca trwa krótko),
+ale zwiększa ilość komunikacji.
+
+Można to poprawić, zmieniając dynamicznie rozmiar pracy.
+
+Każdy proces który zakończył przetwarzanie pracy, zwraca do `TreeMaster`
+nową pracę i/lub znalezione rozwiązania. Po tym żąda od `TreeMaster`
+przydzielenia nowej pracy.
+
+Jeżeli do wykonania nie ma żadnej pracy i żaden z `TreeWorker` aktualnie nie
+pracuje, algorytm jest zakończony. Z zebranych rozwiązań można wybrać
+najbardziej odpowiednie (o najmniejszym koszcie).
+
+#### Raporty
+
+W celu zmierzenia korzyści płynących z metody branch-and-bound, procesy
+`TreeWorker` zliczają liczbę odwiedzonych węzłów oraz liczbę wezłów gdzie
+warunki zadania zostały przekroczone (a poddrzewo odrzucone).
+
+`TreeMaster` może zażądać od `TreeWorker` takiego raportu w celu wyliczenia
+końcowych statystyk oraz porównania obciążenia wszystkich `TreeWorker`.
+
+# Wyniki
+
+Badałem dwa aspekty rozważanego problemu:
+
+* wypły zastosowania podejścia branch-and-bound na ilość obliczeń,
+* skalowalność algorytmu równoległego.
+
+## Branch-and-bound
+
+Czas wykonania algorytmu zależy od ilości obliczeń, która wprost zależy od
+ilości węzłów które należy odwiedzić, przetwarzając drzewo.
+
+$n$ zadań można przypisać do $M$ maszyn na $c_n$ sposobów:
+
+\begin{equation}
+\begin{aligned}
+M_n &=\mathrm{min}(n,M) \\
+c_n &= 1 \cdot 2 \cdot 3 \cdot ... \cdot M \cdot ... \cdot M
+    = M_n! \cdot M^{n-M_n}
+\end{aligned}
+\end{equation}
+
+Stąd, drzewo przypisania $N$ zadań do $M$ maszyn ma wysokość $N$, wszystkich
+możliwych rozwiązań jest $c_N$, a całkowita liczba węzłów w drzewie to:
+
+\begin{equation}
+S_N = \sum_{n = 1, ..., N} c_n
+\end{equation}
+
+Węzłów spełniających warunki zadania jest na ogół znacznie mniej niż $S_N$.
+Akceptowalnych rozwiązań jest również mniej niż $c_N$.
+
+Prostymi metrykami pozwalającymi oszacować korzyści z zastosowania metody
+branch-and-bound są stosunek odwiedzonych węzłów do wszystkich węzłów
+($K_N/S_N$) oraz stosunek liczby znalezionych rozwiązań do wszystkich
+możliwych rozwiązań ($x_n/c_n$). Wielkości te są ze sobą skorelowane, w
+wynikach prezentuję jednak obie z nich.
+
+Problem wybrany do analizy to przypisanie $12$ zadań do $5$ maszyn.
+
+Wylosowałem czas wykonania każdego zadania zgodnie z rozkładem jednostanjym:
+
+\begin{lstlisting}[frame=single]
+val tasks = Seq.fill(taskCount)(prng.nextDouble)
+            .map(Math.abs).map(_ * 10.0)
+            .zipWithIndex.map(_ .swap).map(Task.tupled).toList
+\end{lstlisting}
+
+Całkowity rozmiar drzewa to $S_N = 11'718'753$ węzłów, natomiast ilość możliwych
+(włączając nieakceptowalne) rozwiązań to $c_N = 9'375'000$.
+
+Badałem liczbę odwiedzonych węzłów w zależności od narzuconego
+ograniczenia czasowego(*deadline*). Wyniki przedstawia tabela poniżej.
+
+| *deadline* | odwiedzone węzły ($K_N$) | $K_N/S_N$ | rozwiązania ($x_n$) | $x_n/c_n$ |
+| :--------: | :----------------------: | :-------: | :-----------------: | :-------: |
+| 16.0       | 6'761                    | 0.05%     | 0                   | 0.00%     |
+| 16.7       | 9'467                    |  0.08%     | 1'480               | 0.01%     |
+| 17.0       | 36'347                   | 0.31%     | 16'380              | 0.17%     |
+| 18.0       | 51'293                   | 0.43%     | 27'234              | 0.29%     |
+| 19.0       | 203'169                  | 1.73%     | 132'730             | 1.41%     |
+| 20.0       | 813'981                  | 6.94%     | 542'694             | 5.78%     |
+| 21.0       | 1'287'659                | 10.98%    | 903'346             | 9.63%     |
+| 22.0       | 1'596'886                | 13.62%    | 1'118'886           | 11.93%    |
+
+Widać że jeżeli na poszukiwane rozwiązanie narzucone są bardzo mocne
+ograniczenia, można je znaleźć, przeszukując jedynie niewielką część
+przestrzeni rozwiązań.
+
+Analogiczny trend jest widoczny również dla innych konfiguracji problemu i
+czasu przetwarzanai poszczególnych zadań.
+
+Otrzymane wyniki potwierdzają zasadność wykorzystania metody branch-and-bound
+w tego rodzaju problemach.
+
+
+## Skalowalność
+
+Algorytm równoległy testowałem na maszynie wyposażonej w procesor Intel Core
+i5-4200u @ 1.6 GHz (2C/4T).
+
+Rozmiar problemu wybrałem jak poprzednio: $12$ zadań do $5$ maszyn. Zachowany
+został również rozkład czasu jaki zamuje pojedyncze zadanie.
+
+Wyniki przedstawia poniższa tabela. Wysokość poddrzewa przetwrzanego bez
+dodatkowej komunikacji ustaliłem na 5. Niewielka zmiana tej wartości nie
+przynosiła zauważalnych rezultatów.
+
+| procesy | czas wykonania [s] | odchylenie standardowe [s] |
+| :-----: | :----------------: | :------------------------: |
+| 1 | 15.6095  | 0.4079260554 |
+| 2 | 12.14475 | 0.4145844305 |
+| 3 | 11.07425 | 0.1987835925 |
+| 4 | 10.4565  | 0.583118913  |
+| 5 | 10.64625 | 0.6384681537 |
+| 6 | 11.85925 | 0.3236462833 |
+| 7 | 11.19675 | 0.1186068435 |
+| 8 | 10.717   | 0.5791896638 |
+
+Widać że czas potrzebny na obliczenia maleje ze wzrostem liczby procesów
+liczących (z 15 sekund dla jednego do 10 sekund dla czterech procesów).
+
+Dla więcej niż czterech procesorów, czas pozostaje stały lub nieznacznie
+rośnie. Wynika to najpewniej z użycia do testów procesora z czterema wątkami
+wykonania.
+
+Dalsza częśc tego rozdziału przedstawia wykresy wykonane na podstawie danych
+z tabeli.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{results/images/result-t440-5.in-time}.png}
+    \caption{Czas wykonania programu. 12 zadań, 5 maszyn, deadline - 21.0.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{results/images/result-t440-5.in-speedup}.png}
+    \caption{Przyspieszenie. 12 zadań, 5 maszyn, deadline - 21.0.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{{results/images/result-t440-5.in-efficiency}.png}
+    \caption{Efektywność. 12 zadań, 5 maszyn, deadline - 21.0.}
+\end{figure}
+
+Dla 1 do 4 procesów przyspieszenie można przybliżyć liniowo, efektywność
+spada ze względu na odbywającą się komunikację i istnienie części sekwencyjnej.
+Kształt krzywych jest zachowany również w przypadku innych rozmiarów problemu.
+
+## Obciążenie procesów
+
+W tej klasie algorytmów ważny jest równomierny podział pracy miedzy procesy
+(i procesory).
+
+W rozważanym przypadku podział pracy był idealnie równomierny.
+Łatwo to zweryfikować, zliczając węzły drzewa odwiedzone przez każdy
+z procesów. Taki wniosek jest prawdziwy dla dostatecznie dużych drzew.
+
+\begin{lstlisting}[frame=single]
+WORKER REPORT: totalWork=320099 discardedWork=157656
+WORKER REPORT: totalWork=311536 discardedWork=154323
+WORKER REPORT: totalWork=331232 discardedWork=162868
+WORKER REPORT: totalWork=324792 discardedWork=159050
+\end{lstlisting}
+
+`totalWork` na powyższym listingu to liczba odwiedzonych węzłów drzwa.
+`discardedWork` to liczba węzłów w których nastąpiło odcięcie całego poddrzewa.
 
 \begin{thebibliography}{9}
 
