@@ -25,4 +25,9 @@ package object Messages {
     case class WorkDoneMsg(val newWorkAndSolutions: WorkResult)
 
     case class WorkDoneAckMsg()
+
+    case class ReportRequestMsg()
+
+    case class ReportResponseMsg(val totalWork: Int,
+                                 val discardedWork: Int)
 }

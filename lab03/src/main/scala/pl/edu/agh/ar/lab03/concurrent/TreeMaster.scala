@@ -11,6 +11,7 @@ import akka.actor.Props
 import scala.collection.mutable.ListBuffer
 import akka.actor.ActorRef
 import scala.concurrent.Await
+import scala.annotation.tailrec
 
 class TreeMaster(
     val tasks: List[Task],
@@ -46,10 +47,15 @@ class TreeMaster(
 
     var solutions = List.empty[Mapping]
 
+    var reports = List.empty[ReportResponseMsg]
+
+    val startTime = System.currentTimeMillis
+
+    var wdRecv = true
+
     def receive = {
 
         case WorkRequestMsg() =>
-            println(s"workRequest $sender")
             work match {
                 case workToAssign :: restOfWork =>
                     sender ! WorkAssignmentMsg(workToAssign)
@@ -60,6 +66,14 @@ class TreeMaster(
             }
 
         case WorkDoneMsg((newWork, mapping)) =>
+
+            if (wdRecv) {
+                println("WORK DONE")
+                println((System.currentTimeMillis - startTime)/1000.0)
+                wdRecv = false
+            }
+
+
 
             work = newWork.toList ++ work
             solutions = mapping.toList ++ solutions
@@ -76,10 +90,55 @@ class TreeMaster(
             waitingWorkers = waitingWorkers.drop(workToAssign.size)
             assignedTaskCount += workToAssign.size
 
+            // all work done
             if (work.isEmpty && assignedTaskCount == 0) {
-                println("done!!!!")
-                pprint.pprintln(solutions)
-//                println(solutions)
+                workers.foreach { worker =>
+                    worker ! ReportRequestMsg()
+                }
+            }
+
+        case report @ ReportResponseMsg(totalWork, discardedWork) =>
+
+            reports = report :: reports
+
+            println(s"WORKER REPORT: " +
+                    s"totalWork=$totalWork discardedWork=$discardedWork")
+
+            // last report received
+            if (reports.size == workers.size) {
+
+                val deltaTime = System.currentTimeMillis - startTime
+
+                def factorial(n: BigInt): BigInt = {
+                    @tailrec
+                    def factorial2(n: BigInt, result: BigInt): BigInt =
+                        if (n==0) result else factorial2(n-1, n*result)
+                    factorial2(n, 1)
+                }
+
+                val machinesSize = BigInt(machines.size)
+
+                def possibleAssignments(taskCount: Int):BigInt = {
+                    val usedMachines =
+                        Math.min(taskCount, machinesSize.intValue)
+                    val d = (taskCount - usedMachines)
+                    factorial(usedMachines) * machinesSize.pow(d)
+                }
+
+                val treeSize = (1 to tasks.size).map(possibleAssignments).sum
+
+                val visitedNodes = reports.map { _.totalWork } sum
+
+                println(s"treeSize=$treeSize")
+                println(s"visitedNodes=$visitedNodes")
+
+                println(s"possibleSolutions=${possibleAssignments(tasks.size)}")
+                println(s"matchingSolutions=${solutions.size}")
+
+                println(s"deltaTime=${deltaTime/1000.0}")
+
+//                pprint.pprintln(solutions)
+
                 import scala.concurrent.duration._
                 Await.result(context.system.terminate(), 10 seconds)
             }

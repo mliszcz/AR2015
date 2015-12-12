@@ -16,18 +16,23 @@ class TreeWorker(
     val deadline: Double,
     val unitCost: Double) extends Actor {
 
-    val STEPS = 3
+    val STEPS = 10
+
+    var totalWork = 0
+    var discardedWork = 0
 
     master ! WorkRequestMsg()
 
     def receive = {
 
         case WorkAssignmentMsg(assignedWork) =>
-            println("worker got msg")
             master ! WorkDoneMsg(doWork(assignedWork, STEPS))
 
         case WorkDoneAckMsg() =>
             master ! WorkRequestMsg()
+
+        case ReportRequestMsg() =>
+            sender ! ReportResponseMsg(totalWork, discardedWork)
     }
 
     def evaluateSolution(mapping: Mapping) =
@@ -42,6 +47,8 @@ class TreeWorker(
     /** Do work. Either solution is found or there is more work. */
     def doWorkStep(assignedWork: WorkDescription)
     : Either[Seq[WorkDescription], Mapping] = {
+
+        totalWork += 1
 
         val task = assignedWork.task
         val machine = assignedWork.machine
@@ -69,9 +76,10 @@ class TreeWorker(
                 val nextMapping = mapping + (nextTask -> nextMachine)
                 val (time, _) = evaluateSolution(nextMapping)
                 if (time >= deadline) {
-                    println(s"""ignoring tasks with
-                    |${restTasks.tail.length} remaining
-                    """.stripMargin.replaceAll("\n", " "))
+                    discardedWork += 1
+//                    println(s"""ignoring tasks with
+//                    |${restTasks.tail.length} remaining
+//                    """.stripMargin.replaceAll("\n", " "))
                 }
 
                 time < deadline

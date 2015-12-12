@@ -23,8 +23,8 @@ object Main {
 
     def main(args: Array[String]) = {
 
-        val taskCount = 6
-        val machineCount = 3
+        val taskCount = 13//6
+        val machineCount = 5//3
 
         val deadline = 30.0
         val unitCost = 10.0
