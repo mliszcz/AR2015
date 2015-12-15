@@ -1,6 +1,7 @@
 package pl.edu.agh.ar.lab03
 
 import scala.util.Random
+import scala.util.control.Exception._
 
 import org.slf4j.LoggerFactory
 
@@ -23,11 +24,16 @@ object Main {
 
     def main(args: Array[String]) = {
 
-        val taskCount = 12//6
-        val machineCount = 5//3
+        val taskCount = allCatch opt { args(0).toInt } getOrElse(12)
+        val machineCount = allCatch opt {args(1).toInt } getOrElse(5)
 
-        val deadline = 21.0
         val unitCost = 10.0
+
+        val deadline = allCatch.opt{ args(2).toDouble }
+            .getOrElse(unitCost * taskCount / machineCount)
+
+
+        val workerCount = allCatch opt { args(3).toInt } getOrElse(2)
 
         val tasks = Seq.fill(taskCount)(prng.nextDouble)
             .map(Math.abs).map(_*10.0)
@@ -38,9 +44,10 @@ object Main {
         ConcurrentSolution.buildMappingTree(tasks,
                                             machines,
                                             deadline,
-                                            unitCost)
+                                            unitCost,
+                                            workerCount)
 
-        println(s"   tasks: $tasks")
-        println(s"machines: $machines")
+//        println(s"   tasks: $tasks")
+//        println(s"machines: $machines")
     }
 }
