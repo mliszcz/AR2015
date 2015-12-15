@@ -1,6 +1,6 @@
 % Algorytmy równoległe 2015 (zad. 3)
 % Michał Liszcz
-% 2015-12-12
+% 2015-12-15
 
 ---
 geometry: margin=6em
@@ -415,58 +415,42 @@ w tego rodzaju problemach.
 
 ## Skalowalność
 
-Algorytm równoległy testowałem na maszynie wyposażonej w procesor Intel Core
-i5-4200u @ 1.6 GHz (2C/4T).
+Algorytm równoległy testowałem na klastrze Zeus w ACK Cyfronet AGH.
 
 Rozmiar problemu wybrałem jak poprzednio: $12$ zadań do $5$ maszyn. Zachowany
-został również rozkład czasu jaki zamuje pojedyncze zadanie.
+został również rozkład czasu jaki zamuje pojedyncze zadanie. Jest to największy
+problem jaki można rozwiązać w "rozsądnym" czasie. Liczba możliwych rozwiązań
+rośnie wykładniczo ze wzrostem liczby zadań i potęgowo ze wzrostem liczby
+maszyn.
 
-Wyniki przedstawia poniższa tabela. Wysokość poddrzewa przetwrzanego bez
-dodatkowej komunikacji ustaliłem na 5. Niewielka zmiana tej wartości nie
-przynosiła zauważalnych rezultatów.
+Wysokość poddrzewa przetwrzanego bez dodatkowej komunikacji ustaliłem na 5.
+Niewielka zmiana tej wartości nie przynosiła zauważalnych rezultatów.
 
-| procesy | czas wykonania [s] | odchylenie standardowe [s] |
-| :-----: | :----------------: | :------------------------: |
-| 1 | 15.6095  | 0.4079260554 |
-| 2 | 12.14475 | 0.4145844305 |
-| 3 | 11.07425 | 0.1987835925 |
-| 4 | 10.4565  | 0.583118913  |
-| 5 | 10.64625 | 0.6384681537 |
-| 6 | 11.85925 | 0.3236462833 |
-| 7 | 11.19675 | 0.1186068435 |
-| 8 | 10.717   | 0.5791896638 |
+Zmierzyłem czas wykonania algorytmu w funkcji liczby procesów (`TreeWorker`).
+Na podstawie tych danych wyliczyłem przyspieszenie i efektywność algorytmu.
+Charakterystyki te są przedstawione na wykresach poniżej.
 
-Widać że czas potrzebny na obliczenia maleje ze wzrostem liczby procesów
-liczących (z 15 sekund dla jednego do 10 sekund dla czterech procesów).
-
-Dla więcej niż czterech procesorów, czas pozostaje stały lub nieznacznie
-rośnie. Wynika to najpewniej z użycia do testów procesora z czterema wątkami
-wykonania.
-
-Dalsza częśc tego rozdziału przedstawia wykresy wykonane na podstawie danych
-z tabeli.
+Czas wykonania na wykresie maleje zgodnie z oczekiwaniami jak $1/x + c$.
+Dla małej liczby procesorów przyspieszenie można przybliżyć liniowo
+($\approx 0.5 x$). Efektywność maleje do wartości około $0.2$.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{{results/images/result-t440-5.in-time}.png}
+    \includegraphics[width=0.77\textwidth]{{results/images/result-zeus-12-5-21-p1.in-time}.png}
     \caption{Czas wykonania programu. 12 zadań, 5 maszyn, deadline - 21.0.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{{results/images/result-t440-5.in-speedup}.png}
+    \includegraphics[width=0.77\textwidth]{{results/images/result-zeus-12-5-21-p1.in-speedup}.png}
     \caption{Przyspieszenie. 12 zadań, 5 maszyn, deadline - 21.0.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{{results/images/result-t440-5.in-efficiency}.png}
+    \includegraphics[width=0.77\textwidth]{{results/images/result-zeus-12-5-21-p1.in-efficiency}.png}
     \caption{Efektywność. 12 zadań, 5 maszyn, deadline - 21.0.}
 \end{figure}
-
-Dla 1 do 4 procesów przyspieszenie można przybliżyć liniowo, efektywność
-spada ze względu na odbywającą się komunikację i istnienie części sekwencyjnej.
-Kształt krzywych jest zachowany również w przypadku innych rozmiarów problemu.
 
 ## Obciążenie procesów
 

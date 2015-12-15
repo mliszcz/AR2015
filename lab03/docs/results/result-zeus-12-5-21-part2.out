@@ -1,0 +1,619 @@
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 1
+WORKER REPORT: totalWork=1285772 discardedWork=633266
+treeSize=11718753
+visitedNodes=1285772
+possibleSolutions=9375000
+matchingSolutions=901962
+deltaTime=14.256
+[success] Total time: 26 s, completed Dec 15, 2015 9:44:17 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 2
+WORKER REPORT: totalWork=649100 discardedWork=319541
+WORKER REPORT: totalWork=637283 discardedWork=313985
+treeSize=11718753
+visitedNodes=1286383
+possibleSolutions=9375000
+matchingSolutions=902399
+deltaTime=9.468
+[success] Total time: 21 s, completed Dec 15, 2015 9:44:43 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 3
+WORKER REPORT: totalWork=431418 discardedWork=213282
+WORKER REPORT: totalWork=425641 discardedWork=209030
+WORKER REPORT: totalWork=430043 discardedWork=211426
+treeSize=11718753
+visitedNodes=1287102
+possibleSolutions=9375000
+matchingSolutions=902932
+deltaTime=6.675
+[success] Total time: 18 s, completed Dec 15, 2015 9:45:05 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 4
+WORKER REPORT: totalWork=329136 discardedWork=162574
+WORKER REPORT: totalWork=306326 discardedWork=150342
+WORKER REPORT: totalWork=328725 discardedWork=160798
+WORKER REPORT: totalWork=323472 discardedWork=160183
+treeSize=11718753
+visitedNodes=1287659
+possibleSolutions=9375000
+matchingSolutions=903346
+deltaTime=5.543
+[success] Total time: 17 s, completed Dec 15, 2015 9:45:27 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 5
+WORKER REPORT: totalWork=259591 discardedWork=127528
+WORKER REPORT: totalWork=256346 discardedWork=126445
+WORKER REPORT: totalWork=255524 discardedWork=125857
+WORKER REPORT: totalWork=258143 discardedWork=127677
+WORKER REPORT: totalWork=258748 discardedWork=126628
+treeSize=11718753
+visitedNodes=1288352
+possibleSolutions=9375000
+matchingSolutions=903853
+deltaTime=4.646
+[success] Total time: 16 s, completed Dec 15, 2015 9:45:48 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 6
+WORKER REPORT: totalWork=216198 discardedWork=106395
+WORKER REPORT: totalWork=212715 discardedWork=105289
+WORKER REPORT: totalWork=216287 discardedWork=106355
+WORKER REPORT: totalWork=213672 discardedWork=106114
+WORKER REPORT: totalWork=214368 discardedWork=104364
+WORKER REPORT: totalWork=215819 discardedWork=105842
+treeSize=11718753
+visitedNodes=1289059
+possibleSolutions=9375000
+matchingSolutions=904374
+deltaTime=4.326
+[success] Total time: 15 s, completed Dec 15, 2015 9:46:08 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 7
+WORKER REPORT: totalWork=182919 discardedWork=90953
+WORKER REPORT: totalWork=185329 discardedWork=91384
+WORKER REPORT: totalWork=184736 discardedWork=91242
+WORKER REPORT: totalWork=183641 discardedWork=90193
+WORKER REPORT: totalWork=184236 discardedWork=90062
+WORKER REPORT: totalWork=184895 discardedWork=90299
+WORKER REPORT: totalWork=183914 discardedWork=90486
+treeSize=11718753
+visitedNodes=1289670
+possibleSolutions=9375000
+matchingSolutions=904811
+deltaTime=4.064
+[success] Total time: 15 s, completed Dec 15, 2015 9:46:28 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 8
+WORKER REPORT: totalWork=159555 discardedWork=78619
+WORKER REPORT: totalWork=161098 discardedWork=80371
+WORKER REPORT: totalWork=162648 discardedWork=79314
+WORKER REPORT: totalWork=162991 discardedWork=80231
+WORKER REPORT: totalWork=160442 discardedWork=78413
+WORKER REPORT: totalWork=161674 discardedWork=79233
+WORKER REPORT: totalWork=160992 discardedWork=79426
+WORKER REPORT: totalWork=160989 discardedWork=79224
+treeSize=11718753
+visitedNodes=1290389
+possibleSolutions=9375000
+matchingSolutions=905344
+deltaTime=3.894
+[success] Total time: 15 s, completed Dec 15, 2015 9:46:48 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 9
+WORKER REPORT: totalWork=143585 discardedWork=71198
+WORKER REPORT: totalWork=143412 discardedWork=70341
+WORKER REPORT: totalWork=143038 discardedWork=70567
+WORKER REPORT: totalWork=142525 discardedWork=69682
+WORKER REPORT: totalWork=143133 discardedWork=70417
+WORKER REPORT: totalWork=144439 discardedWork=70819
+WORKER REPORT: totalWork=144386 discardedWork=71077
+WORKER REPORT: totalWork=144795 discardedWork=71578
+WORKER REPORT: totalWork=141633 discardedWork=69311
+treeSize=11718753
+visitedNodes=1290946
+possibleSolutions=9375000
+matchingSolutions=905758
+deltaTime=3.774
+[success] Total time: 15 s, completed Dec 15, 2015 9:47:08 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 10
+WORKER REPORT: totalWork=128650 discardedWork=63593
+WORKER REPORT: totalWork=128662 discardedWork=63285
+WORKER REPORT: totalWork=126703 discardedWork=62493
+WORKER REPORT: totalWork=128673 discardedWork=63041
+WORKER REPORT: totalWork=130586 discardedWork=63339
+WORKER REPORT: totalWork=129802 discardedWork=64037
+WORKER REPORT: totalWork=127040 discardedWork=62724
+WORKER REPORT: totalWork=129536 discardedWork=63528
+WORKER REPORT: totalWork=130237 discardedWork=63991
+WORKER REPORT: totalWork=131750 discardedWork=65197
+treeSize=11718753
+visitedNodes=1291639
+possibleSolutions=9375000
+matchingSolutions=906265
+deltaTime=3.862
+[success] Total time: 15 s, completed Dec 15, 2015 9:47:28 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 11
+WORKER REPORT: totalWork=118218 discardedWork=57695
+WORKER REPORT: totalWork=115111 discardedWork=56771
+WORKER REPORT: totalWork=118529 discardedWork=57635
+WORKER REPORT: totalWork=117067 discardedWork=57983
+WORKER REPORT: totalWork=119939 discardedWork=59448
+WORKER REPORT: totalWork=116289 discardedWork=57251
+WORKER REPORT: totalWork=116045 discardedWork=57201
+WORKER REPORT: totalWork=118028 discardedWork=58009
+WORKER REPORT: totalWork=116535 discardedWork=56582
+WORKER REPORT: totalWork=118664 discardedWork=58227
+WORKER REPORT: totalWork=117921 discardedWork=58650
+treeSize=11718753
+visitedNodes=1292346
+possibleSolutions=9375000
+matchingSolutions=906786
+deltaTime=3.731
+[success] Total time: 15 s, completed Dec 15, 2015 9:47:48 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 12
+WORKER REPORT: totalWork=110187 discardedWork=54391
+WORKER REPORT: totalWork=107049 discardedWork=52956
+WORKER REPORT: totalWork=109053 discardedWork=53242
+WORKER REPORT: totalWork=104711 discardedWork=51976
+WORKER REPORT: totalWork=105809 discardedWork=51158
+WORKER REPORT: totalWork=108638 discardedWork=53543
+WORKER REPORT: totalWork=111946 discardedWork=54327
+WORKER REPORT: totalWork=107276 discardedWork=52905
+WORKER REPORT: totalWork=109809 discardedWork=53361
+WORKER REPORT: totalWork=105895 discardedWork=52876
+WORKER REPORT: totalWork=106899 discardedWork=52638
+WORKER REPORT: totalWork=105646 discardedWork=52313
+treeSize=11718753
+visitedNodes=1292918
+possibleSolutions=9375000
+matchingSolutions=907197
+deltaTime=3.765
+[success] Total time: 15 s, completed Dec 15, 2015 9:48:08 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 1
+WORKER REPORT: totalWork=1285772 discardedWork=633266
+treeSize=11718753
+visitedNodes=1285772
+possibleSolutions=9375000
+matchingSolutions=901962
+deltaTime=14.412
+[success] Total time: 26 s, completed Dec 15, 2015 9:48:38 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 2
+WORKER REPORT: totalWork=619595 discardedWork=304153
+WORKER REPORT: totalWork=666788 discardedWork=329373
+treeSize=11718753
+visitedNodes=1286383
+possibleSolutions=9375000
+matchingSolutions=902399
+deltaTime=8.951
+[success] Total time: 20 s, completed Dec 15, 2015 9:49:04 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 3
+WORKER REPORT: totalWork=409646 discardedWork=200691
+WORKER REPORT: totalWork=434052 discardedWork=214311
+WORKER REPORT: totalWork=443404 discardedWork=218736
+treeSize=11718753
+visitedNodes=1287102
+possibleSolutions=9375000
+matchingSolutions=902932
+deltaTime=6.856
+[success] Total time: 18 s, completed Dec 15, 2015 9:49:27 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 4
+WORKER REPORT: totalWork=330399 discardedWork=163506
+WORKER REPORT: totalWork=315999 discardedWork=156279
+WORKER REPORT: totalWork=318622 discardedWork=156484
+WORKER REPORT: totalWork=322639 discardedWork=157628
+treeSize=11718753
+visitedNodes=1287659
+possibleSolutions=9375000
+matchingSolutions=903346
+deltaTime=5.528
+[success] Total time: 17 s, completed Dec 15, 2015 9:49:49 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 5
+WORKER REPORT: totalWork=255651 discardedWork=124669
+WORKER REPORT: totalWork=261995 discardedWork=129777
+WORKER REPORT: totalWork=258807 discardedWork=127140
+WORKER REPORT: totalWork=254804 discardedWork=125462
+WORKER REPORT: totalWork=257095 discardedWork=127087
+treeSize=11718753
+visitedNodes=1288352
+possibleSolutions=9375000
+matchingSolutions=903853
+deltaTime=4.718
+[success] Total time: 16 s, completed Dec 15, 2015 9:50:10 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 6
+WORKER REPORT: totalWork=215713 discardedWork=105509
+WORKER REPORT: totalWork=215039 discardedWork=105676
+WORKER REPORT: totalWork=214843 discardedWork=105136
+WORKER REPORT: totalWork=216705 discardedWork=106596
+WORKER REPORT: totalWork=213144 discardedWork=105808
+WORKER REPORT: totalWork=213615 discardedWork=105634
+treeSize=11718753
+visitedNodes=1289059
+possibleSolutions=9375000
+matchingSolutions=904374
+deltaTime=4.285
+[success] Total time: 16 s, completed Dec 15, 2015 9:50:30 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 7
+WORKER REPORT: totalWork=183781 discardedWork=90057
+WORKER REPORT: totalWork=184183 discardedWork=90440
+WORKER REPORT: totalWork=183320 discardedWork=90376
+WORKER REPORT: totalWork=184951 discardedWork=91172
+WORKER REPORT: totalWork=185574 discardedWork=90617
+WORKER REPORT: totalWork=183210 discardedWork=90322
+WORKER REPORT: totalWork=184651 discardedWork=91635
+treeSize=11718753
+visitedNodes=1289670
+possibleSolutions=9375000
+matchingSolutions=904811
+deltaTime=4.03
+[success] Total time: 15 s, completed Dec 15, 2015 9:50:50 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 8
+WORKER REPORT: totalWork=162097 discardedWork=80069
+WORKER REPORT: totalWork=161522 discardedWork=78626
+WORKER REPORT: totalWork=161846 discardedWork=79009
+WORKER REPORT: totalWork=160643 discardedWork=79994
+WORKER REPORT: totalWork=162215 discardedWork=79376
+WORKER REPORT: totalWork=161123 discardedWork=79116
+WORKER REPORT: totalWork=159208 discardedWork=78703
+WORKER REPORT: totalWork=161735 discardedWork=79938
+treeSize=11718753
+visitedNodes=1290389
+possibleSolutions=9375000
+matchingSolutions=905344
+deltaTime=3.839
+[success] Total time: 15 s, completed Dec 15, 2015 9:51:10 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 9
+WORKER REPORT: totalWork=141932 discardedWork=70416
+WORKER REPORT: totalWork=144017 discardedWork=70818
+WORKER REPORT: totalWork=143593 discardedWork=70388
+WORKER REPORT: totalWork=142379 discardedWork=69776
+WORKER REPORT: totalWork=143374 discardedWork=70485
+WORKER REPORT: totalWork=143926 discardedWork=70861
+WORKER REPORT: totalWork=144309 discardedWork=70508
+WORKER REPORT: totalWork=143613 discardedWork=70604
+WORKER REPORT: totalWork=143803 discardedWork=71134
+treeSize=11718753
+visitedNodes=1290946
+possibleSolutions=9375000
+matchingSolutions=905758
+deltaTime=3.773
+[success] Total time: 15 s, completed Dec 15, 2015 9:51:30 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 10
+WORKER REPORT: totalWork=129731 discardedWork=63237
+WORKER REPORT: totalWork=127891 discardedWork=63508
+WORKER REPORT: totalWork=129196 discardedWork=63535
+WORKER REPORT: totalWork=127910 discardedWork=62739
+WORKER REPORT: totalWork=129226 discardedWork=63555
+WORKER REPORT: totalWork=130353 discardedWork=63508
+WORKER REPORT: totalWork=130012 discardedWork=64219
+WORKER REPORT: totalWork=128359 discardedWork=63183
+WORKER REPORT: totalWork=130169 discardedWork=64368
+WORKER REPORT: totalWork=128792 discardedWork=63376
+treeSize=11718753
+visitedNodes=1291639
+possibleSolutions=9375000
+matchingSolutions=906265
+deltaTime=3.686
+[success] Total time: 15 s, completed Dec 15, 2015 9:51:50 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 11
+WORKER REPORT: totalWork=121226 discardedWork=58869
+WORKER REPORT: totalWork=115109 discardedWork=56951
+WORKER REPORT: totalWork=118827 discardedWork=58291
+WORKER REPORT: totalWork=118192 discardedWork=57775
+WORKER REPORT: totalWork=116813 discardedWork=57502
+WORKER REPORT: totalWork=117260 discardedWork=57432
+WORKER REPORT: totalWork=117051 discardedWork=57713
+WORKER REPORT: totalWork=116619 discardedWork=57444
+WORKER REPORT: totalWork=118494 discardedWork=58375
+WORKER REPORT: totalWork=115835 discardedWork=57446
+WORKER REPORT: totalWork=116920 discardedWork=57654
+treeSize=11718753
+visitedNodes=1292346
+possibleSolutions=9375000
+matchingSolutions=906786
+deltaTime=3.654
+[success] Total time: 15 s, completed Dec 15, 2015 9:52:10 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 12
+WORKER REPORT: totalWork=106248 discardedWork=52029
+WORKER REPORT: totalWork=107728 discardedWork=53191
+WORKER REPORT: totalWork=105025 discardedWork=51023
+WORKER REPORT: totalWork=110973 discardedWork=54027
+WORKER REPORT: totalWork=105097 discardedWork=51731
+WORKER REPORT: totalWork=109133 discardedWork=54071
+WORKER REPORT: totalWork=108134 discardedWork=53281
+WORKER REPORT: totalWork=106228 discardedWork=52171
+WORKER REPORT: totalWork=105425 discardedWork=51643
+WORKER REPORT: totalWork=106361 discardedWork=52151
+WORKER REPORT: totalWork=111804 discardedWork=55379
+WORKER REPORT: totalWork=110762 discardedWork=54989
+treeSize=11718753
+visitedNodes=1292918
+possibleSolutions=9375000
+matchingSolutions=907197
+deltaTime=3.761
+[success] Total time: 15 s, completed Dec 15, 2015 9:52:30 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 1
+WORKER REPORT: totalWork=1285772 discardedWork=633266
+treeSize=11718753
+visitedNodes=1285772
+possibleSolutions=9375000
+matchingSolutions=901962
+deltaTime=14.721
+[success] Total time: 26 s, completed Dec 15, 2015 9:53:01 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 2
+WORKER REPORT: totalWork=651640 discardedWork=321954
+WORKER REPORT: totalWork=634743 discardedWork=311572
+treeSize=11718753
+visitedNodes=1286383
+possibleSolutions=9375000
+matchingSolutions=902399
+deltaTime=9.185
+[success] Total time: 20 s, completed Dec 15, 2015 9:53:26 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 3
+WORKER REPORT: totalWork=428269 discardedWork=210948
+WORKER REPORT: totalWork=419468 discardedWork=206757
+WORKER REPORT: totalWork=439365 discardedWork=216033
+treeSize=11718753
+visitedNodes=1287102
+possibleSolutions=9375000
+matchingSolutions=902932
+deltaTime=6.849
+[success] Total time: 18 s, completed Dec 15, 2015 9:53:49 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 4
+WORKER REPORT: totalWork=329588 discardedWork=163535
+WORKER REPORT: totalWork=312352 discardedWork=152713
+WORKER REPORT: totalWork=322564 discardedWork=159333
+WORKER REPORT: totalWork=323155 discardedWork=158316
+treeSize=11718753
+visitedNodes=1287659
+possibleSolutions=9375000
+matchingSolutions=903346
+deltaTime=5.326
+[success] Total time: 17 s, completed Dec 15, 2015 9:54:11 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 5
+WORKER REPORT: totalWork=257561 discardedWork=126929
+WORKER REPORT: totalWork=255984 discardedWork=125983
+WORKER REPORT: totalWork=261367 discardedWork=128470
+WORKER REPORT: totalWork=254133 discardedWork=125786
+WORKER REPORT: totalWork=259307 discardedWork=126967
+treeSize=11718753
+visitedNodes=1288352
+possibleSolutions=9375000
+matchingSolutions=903853
+deltaTime=4.599
+[success] Total time: 16 s, completed Dec 15, 2015 9:54:32 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 6
+WORKER REPORT: totalWork=212557 discardedWork=104531
+WORKER REPORT: totalWork=215831 discardedWork=107460
+WORKER REPORT: totalWork=214738 discardedWork=106148
+WORKER REPORT: totalWork=213420 discardedWork=103801
+WORKER REPORT: totalWork=217015 discardedWork=107311
+WORKER REPORT: totalWork=215498 discardedWork=105108
+treeSize=11718753
+visitedNodes=1289059
+possibleSolutions=9375000
+matchingSolutions=904374
+deltaTime=4.276
+[success] Total time: 16 s, completed Dec 15, 2015 9:54:52 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 7
+WORKER REPORT: totalWork=186899 discardedWork=91437
+WORKER REPORT: totalWork=184091 discardedWork=91390
+WORKER REPORT: totalWork=184120 discardedWork=90641
+WORKER REPORT: totalWork=183036 discardedWork=89753
+WORKER REPORT: totalWork=186484 discardedWork=91652
+WORKER REPORT: totalWork=180206 discardedWork=88217
+WORKER REPORT: totalWork=184834 discardedWork=91529
+treeSize=11718753
+visitedNodes=1289670
+possibleSolutions=9375000
+matchingSolutions=904811
+deltaTime=4.191
+[success] Total time: 15 s, completed Dec 15, 2015 9:55:12 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 8
+WORKER REPORT: totalWork=161226 discardedWork=80205
+WORKER REPORT: totalWork=160892 discardedWork=79154
+WORKER REPORT: totalWork=162451 discardedWork=79669
+WORKER REPORT: totalWork=161762 discardedWork=79357
+WORKER REPORT: totalWork=159761 discardedWork=78628
+WORKER REPORT: totalWork=160114 discardedWork=78132
+WORKER REPORT: totalWork=162259 discardedWork=79771
+WORKER REPORT: totalWork=161924 discardedWork=79915
+treeSize=11718753
+visitedNodes=1290389
+possibleSolutions=9375000
+matchingSolutions=905344
+deltaTime=3.887
+[success] Total time: 15 s, completed Dec 15, 2015 9:55:33 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 9
+WORKER REPORT: totalWork=142391 discardedWork=70768
+WORKER REPORT: totalWork=142757 discardedWork=70418
+WORKER REPORT: totalWork=143920 discardedWork=71227
+WORKER REPORT: totalWork=142110 discardedWork=70019
+WORKER REPORT: totalWork=145892 discardedWork=70981
+WORKER REPORT: totalWork=142928 discardedWork=69963
+WORKER REPORT: totalWork=142880 discardedWork=69886
+WORKER REPORT: totalWork=142954 discardedWork=70632
+WORKER REPORT: totalWork=145114 discardedWork=71096
+treeSize=11718753
+visitedNodes=1290946
+possibleSolutions=9375000
+matchingSolutions=905758
+deltaTime=3.835
+[success] Total time: 15 s, completed Dec 15, 2015 9:55:53 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 10
+WORKER REPORT: totalWork=129421 discardedWork=63974
+WORKER REPORT: totalWork=130033 discardedWork=64167
+WORKER REPORT: totalWork=129153 discardedWork=63049
+WORKER REPORT: totalWork=129479 discardedWork=63654
+WORKER REPORT: totalWork=131123 discardedWork=65153
+WORKER REPORT: totalWork=130864 discardedWork=64332
+WORKER REPORT: totalWork=126818 discardedWork=62867
+WORKER REPORT: totalWork=128077 discardedWork=62496
+WORKER REPORT: totalWork=127090 discardedWork=61563
+WORKER REPORT: totalWork=129581 discardedWork=63973
+treeSize=11718753
+visitedNodes=1291639
+possibleSolutions=9375000
+matchingSolutions=906265
+deltaTime=3.714
+[success] Total time: 15 s, completed Dec 15, 2015 9:56:13 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 11
+WORKER REPORT: totalWork=118579 discardedWork=58622
+WORKER REPORT: totalWork=118002 discardedWork=57901
+WORKER REPORT: totalWork=117021 discardedWork=57351
+WORKER REPORT: totalWork=118027 discardedWork=57857
+WORKER REPORT: totalWork=115251 discardedWork=56834
+WORKER REPORT: totalWork=118470 discardedWork=59212
+WORKER REPORT: totalWork=115850 discardedWork=56899
+WORKER REPORT: totalWork=117012 discardedWork=57208
+WORKER REPORT: totalWork=116453 discardedWork=56943
+WORKER REPORT: totalWork=120192 discardedWork=58592
+WORKER REPORT: totalWork=117489 discardedWork=58033
+treeSize=11718753
+visitedNodes=1292346
+possibleSolutions=9375000
+matchingSolutions=906786
+deltaTime=3.898
+[success] Total time: 15 s, completed Dec 15, 2015 9:56:33 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 12
+WORKER REPORT: totalWork=107234 discardedWork=52887
+WORKER REPORT: totalWork=109641 discardedWork=53428
+WORKER REPORT: totalWork=109053 discardedWork=53904
+WORKER REPORT: totalWork=111381 discardedWork=55222
+WORKER REPORT: totalWork=105858 discardedWork=52570
+WORKER REPORT: totalWork=108111 discardedWork=53591
+WORKER REPORT: totalWork=107567 discardedWork=53055
+WORKER REPORT: totalWork=104316 discardedWork=50870
+WORKER REPORT: totalWork=105298 discardedWork=51694
+WORKER REPORT: totalWork=106460 discardedWork=51814
+WORKER REPORT: totalWork=111547 discardedWork=54455
+WORKER REPORT: totalWork=106452 discardedWork=52196
+treeSize=11718753
+visitedNodes=1292918
+possibleSolutions=9375000
+matchingSolutions=907197
+deltaTime=3.785
+[success] Total time: 15 s, completed Dec 15, 2015 9:56:53 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 1
+WORKER REPORT: totalWork=1285772 discardedWork=633266
+treeSize=11718753
+visitedNodes=1285772
+possibleSolutions=9375000
+matchingSolutions=901962
+deltaTime=14.72
+[success] Total time: 26 s, completed Dec 15, 2015 9:57:24 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 2
+WORKER REPORT: totalWork=627636 discardedWork=307889
+WORKER REPORT: totalWork=658747 discardedWork=325637
+treeSize=11718753
+visitedNodes=1286383
+possibleSolutions=9375000
+matchingSolutions=902399
+deltaTime=9.088
+[success] Total time: 20 s, completed Dec 15, 2015 9:57:49 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 3
+WORKER REPORT: totalWork=418347 discardedWork=206111
+WORKER REPORT: totalWork=436873 discardedWork=216359
+WORKER REPORT: totalWork=431882 discardedWork=211268
+treeSize=11718753
+visitedNodes=1287102
+possibleSolutions=9375000
+matchingSolutions=902932
+deltaTime=6.745
+[success] Total time: 18 s, completed Dec 15, 2015 9:58:12 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 4
+WORKER REPORT: totalWork=324995 discardedWork=160005
+WORKER REPORT: totalWork=312536 discardedWork=153981
+WORKER REPORT: totalWork=324294 discardedWork=158741
+WORKER REPORT: totalWork=325834 discardedWork=161170
+treeSize=11718753
+visitedNodes=1287659
+possibleSolutions=9375000
+matchingSolutions=903346
+deltaTime=5.346
+[success] Total time: 17 s, completed Dec 15, 2015 9:58:34 PM
+[info] Loading project definition from /mnt/auto/people/plgmliszcz/AR2015/lab03/project
+[info] Set current project to lab03 (in build file:/mnt/auto/people/plgmliszcz/AR2015/lab03/)
+[info] Running pl.edu.agh.ar.lab03.Main 12 5 21 5
+WORKER REPORT: totalWork=251831 discardedWork=123600
+WORKER REPORT: totalWork=258753 discardedWork=127157
+WORKER REPORT: totalWork=258763 discardedWork=126503
+WORKER REPORT: totalWork=259716 discardedWork=129368
+WORKER REPORT: totalWork=259289 discardedWork=127507
+treeSize=11718753
+visitedNodes=1288352
+possibleSolutions=9375000
+matchingSolutions=903853
+deltaTime=4.752
+=>> PBS: job killed: walltime 3659 exceeded limit 3600
+Terminated
