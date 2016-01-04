@@ -56,8 +56,6 @@ std::vector<int> distributeInitialData(const MPI_Comm& comm,
   RankAndSize world(comm, 0);
   std::vector<int> buffer(M, 0);
 
-  srand(time(nullptr));
-
   auto nextInt = [&]() { return rand() % dataRange; };
 
   auto fillBufferWithRandomData = [&]() {
@@ -204,13 +202,24 @@ std::vector<int> paralellQuicksortStep(const MPI_Comm& comm,
 int main(int argc, char** argv) {
 
     if (argc < 2) {
-        MPI_Abort(MPI_COMM_WORLD, 1);
+      printf("usage: %s <data-per-processor> <data-range> <seed>", argv[0]);
+      MPI_Abort(MPI_COMM_WORLD, 1);
     }
 
     // data per-processor
     const int M = strtol(argv[1], nullptr, 10);
 
-    const int dataRange = 100;
+    int dataRange = 100;
+    if (argc > 2) {
+      dataRange = strtol(argv[2], nullptr, 10);
+    }
+
+    time_t seed = time(nullptr);
+    if (argc > 3) {
+      seed = strtol(argv[3], nullptr, 10);
+    }
+
+    srand(seed);
 
     MPI_Init(&argc, &argv);
 
