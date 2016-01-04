@@ -363,15 +363,14 @@ std::vector<int> parallelBufferExchangeStep(const MPI_Comm& comm,
 
 int calculatePivot(std::vector<int>& v) {
 
-  // int dim = v.size();
-  // int a = v[rand()%dim];
-  // int b = v[rand()%dim];
-  // int c = v[rand()%dim];
+  int dim = v.size();
+  int a = v[rand()%dim];
+  int b = v[rand()%dim];
+  int c = v[rand()%dim];
+  return std::max(std::min(a, b), std::min(std::max(a, b), c));
 
-  // return std::max(std::min(a, b), std::min(std::max(a, b), c));
-
-  auto result = std::minmax_element(v.begin(), v.end());
-  return (*result.second + *result.first) / 2;
+  // auto result = std::minmax_element(v.begin(), v.end());
+  // return (*result.second + *result.first) / 2;
 }
 
 std::vector<int> paralellQuicksortExchange(const MPI_Comm& comm,
