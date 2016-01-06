@@ -111,7 +111,72 @@ całe swoje dane przy wymianie z sąsiadem i filtrowaniu.
 
 Pomiary wykonałem z wykorzystaniem klastra Zeus w ACK Cyfronet AGH.
 
+Badałem trzy rozmiary problemów - sortowanie zbioru 3'200'000, 16'000'000
+oraz 32'000'000 liczb wylosowanych z rozkładem jednostajnym. W pierwszym
+przypadku czasy są małe a wyniki obarczone bardzo dużym błędem - pomijam je.
 
+Liczbę procesorów zwiększałem kolejno do 2, 4, 8, 16, i 32.
+
+DLa każdej ilości procesorów i rozmiaru problemu wykonałem 10 pomiarów
+z liczbami wygenerowanymi z losowym ziarnem generatora oraz 10 pomiarów
+z losowym ziarnem. W obu wariantach wyniki były zgodne i dawały takie same
+charakterystyki przyspieszenia i efektywności.
+
+## Wyniki
+
+### Sortowanie 16'000'000 liczb
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{../results/plots/random-seed/plot-standard-time-16000000.png}
+    \caption{Czas wykonania - 16'000'000 liczb.}
+    \label{fig:output_image}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{../results/plots/random-seed/plot-standard-speedup-16000000.png}
+    \caption{Przyspieszenie - 16'000'000 liczb.}
+    \label{fig:output_image}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{../results/plots/random-seed/plot-standard-efficiency-16000000.png}
+    \caption{Efektywność - 16'000'000 liczb.}
+    \label{fig:output_image}
+\end{figure}
+
+### Sortowanie 32'000'000 liczb
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{../results/plots/random-seed/plot-standard-time-32000000.png}
+    \caption{Czas wykonania - 32'000'000 liczb.}
+    \label{fig:output_image}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{../results/plots/random-seed/plot-standard-speedup-32000000.png}
+    \caption{Przyspieszenie - 32'000'000 liczb.}
+    \label{fig:output_image}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{../results/plots/random-seed/plot-standard-efficiency-32000000.png}
+    \caption{Efektywność - 32'000'000 liczb.}
+    \label{fig:output_image}
+\end{figure}
+
+## Wnioski
+
+Czas obliczeń maleje zgodnie z oczekiwaniami. Dla większych rozmiarów problemu
+można wykorzystać jeszcze więcej procesorów.
+
+Charakterystyka przyspieszenia nie jest liniowa a efektywność maleje ze
+wzrostem liczby procesorów.
 
 \begin{thebibliography}{9}
 
